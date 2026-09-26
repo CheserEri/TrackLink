@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 用平台主题，避免为了一个壳主题再引入 material components 依赖。 -->
+    <style name="Theme.TrackLink" parent="@android:style/Theme.Material.Light.NoActionBar" />
+</resources>

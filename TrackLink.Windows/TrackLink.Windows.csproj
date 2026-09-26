@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <!-- 图形界面用 WPF（本机不装 Visual Studio / Windows SDK，纯 dotnet build 即可编译）。 -->
+    <UseWPF>true</UseWPF>
+    <!-- 仅为取得 NotifyIcon / SystemIcons（托盘图标）；与 UseWPF 可共存。 -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>TrackLink.Windows</RootNamespace>
+    <AssemblyName>TrackLink.Windows</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <!--
+      刻意不用 InvariantGlobalization：WPF 的 XmlLanguage / CultureInfo 名称解析
+      在 invariant 模式下会退化甚至抛 CultureNotFoundException，省下的几 MB 不值得。
+    -->
+  </PropertyGroup>
+
+</Project>

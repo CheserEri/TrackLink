@@ -1,0 +1,1341 @@
+﻿TrackLink · 第 1 周可行性探测（Raw Input 触控板独立性验证）
+------------------------------------------------------------------------------
+[注册成功] usagePage=0x01 usage=0x02（鼠标集合）
+[注册成功] usagePage=0x0D usage=0x05（触控板多触点集合）
+共发现 18 个 Raw Input 设备：
+
+类型      设备                             VID:PID     顶层集合           分组键            说明
+--------------------------------------------------------------------------------------------------------------
+HID     \\?\VIRTUAL_DIGITIZER          0000:0000   0x0D/0x04      \\?\VIRTUAL_DIGITIZER 
+HID     XMCCA001                       0000:0000   0x01/0x0C      4&2f702bbf&1   
+HID     VID_046D&PID_C09D&MI_01&Col05  046D:C09D   0xFF00/0x02    7&1d3ce2a6&0   
+T3      ETD2303&Col04                  0000:0000   -              5&1d09e9c1&0   
+HID     VID_046D&PID_C09D&MI_01&Col04  046D:C09D   0xFF00/0x01    7&1d3ce2a6&0   
+HID     ETD2303&Col03                  04F3:3083   0x0D/0x05      5&1d09e9c1&0   ★ 触控板多触点集合（0x0D/0x05 自动识别）
+HID     ETD2303&Col02                  04F3:3083   0xFF00/0x01    5&1d09e9c1&0   
+HID     VID_046D&PID_C09D&MI_01&Col02  046D:C09D   0x0C/0x01      7&1d3ce2a6&0   
+HID     GVInput&Col05                  00FF:BACC   0xFFAA/0xBB    1&2d595ca7&0   
+HID     GVInput&Col04                  00FF:BACC   0xFFEE/0xCC    1&2d595ca7&0   
+KEYBD   MSFT0001                       0004:0000   -              4&1d0fd433     
+KEYBD   VID_046D&PID_C09D&MI_01&Col01  0051:0000   -              7&1d3ce2a6&0   
+KEYBD   GVInput&Col03                  0051:0000   -              1&2d595ca7&0   
+MOUSE   ETD2303&Col01                  0080:0002   -              5&1d09e9c1&0   触控板硬件的鼠标集合（同分组键）
+MOUSE   VID_046D&PID_C09D&MI_00        0100:0010   -              7&306cfee4&0   外部/其他鼠标（分组键不同，可被过滤）
+MOUSE   GVInput&Col02                  0100:0005   -              1&2d595ca7&0   外部/其他鼠标（分组键不同，可被过滤）
+MOUSE   GVInput&Col01                  0100:0005   -              1&2d595ca7&0   外部/其他鼠标（分组键不同，可被过滤）
+MOUSE   MSFT0003                       0002:0003   -              4&1d0fd433     外部/其他鼠标（分组键不同，可被过滤）
+
+触控板多触点集合详情: \\?\HID#ETD2303&Col03#5&1d09e9c1&0&0002#{4d1e55b2-f16f-11cf-88cb-001111000030}
+  顶层集合      : usagePage=0x0D usage=0x05  (触控板多触点集合)
+  输入报文长度  : 12 字节
+  逻辑集合节点  : 2，输入按钮能力 3，输入值能力 6，输入数据索引数 9
+  值能力表（输入）:
+    rid=4 0x0D/0x51      元素=1  位宽=4   逻辑=0..15 物理=0..0 数据索引=2(x1)     链表=1 绝对
+    rid=4 0x01/0x30      元素=1  位宽=16  逻辑=0..3864 物理=0..487 数据索引=3(x1)     链表=1 绝对
+    rid=4 0x01/0x31      元素=1  位宽=16  逻辑=0..2499 物理=0..312 数据索引=4(x1)     链表=1 绝对
+    rid=4 0x0D/0x56      元素=1  位宽=16  逻辑=0..65535 物理=0..65535 数据索引=5(x1)     链表=0 绝对
+    rid=4 0x0D/0x54      元素=1  位宽=8   逻辑=0..127 物理=0..65535 数据索引=6(x1)     链表=0 绝对
+    rid=4 0x09/0xC5      元素=2  位宽=8   逻辑=0..1 物理=0..65535 数据索引=8(x2)     链表=0 绝对
+  按钮能力表（输入）:
+    rid=4 0x0D/0x42      数据索引=0         链表=1
+    rid=4 0x0D/0x47      数据索引=1         链表=1
+    rid=4 0x09/0x01      数据索引=7         链表=0
+  多触点字段    : ContactCount=有 TipSwitch=有 ContactId=有 X=有 Y=有
+
+------------------------------------------------------------------------------
+开始采集。请依次操作：
+  1) 单指在触控板上滑动约 3 秒
+  2) 双指在触控板上上下滑动
+  3) 轻点一下触控板（单击）
+  4) 移动 / 点击外接鼠标（用于验证能否被排除）
+将在 75 秒后自动结束。
+------------------------------------------------------------------------------
+[设备接入] \\?\HID#ETD2303&Col01#5&1d09e9c1&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#VID_046D&PID_C09D&MI_00#7&306cfee4&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#GVInput&Col02#1&2d595ca7&0&0001#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#GVInput&Col01#1&2d595ca7&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\ACPI#MSFT0003#4&1d0fd433&0#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#ETD2303&Col03#5&1d09e9c1&0&0002#{4d1e55b2-f16f-11cf-88cb-001111000030}
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-196608
+VID_046D&PID_C09D&MI_00        （上一秒省略 427 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+VID_046D&PID_C09D&MI_00        （上一秒省略 130 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 76 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 43 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 70 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 26 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 109 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 15 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2362 Y=776
+   HidP_GetData 成功，数据项=7；GetUsageValue 状态：0x0D/0x54=0xC0110001 0x0D/0x51=0xC0110001 0x0D/0x42=0xC0110001 0x01/0x30=0xC0110001 0x01/0x31=0xC0110001   解码字段明细: [0x0D/0x42]=1 [0x0D/0x47]=1 [0x0D/0x51]=0 [0x01/0x30]=2362 [0x01/0x31]=776 [0x0D/0x56]=57136 [0x0D/0x54]=1
+   报文 hex=04 03 3A 09 08 03 30 DF 01 80 16 33
+   （以上为该集合的首条报文，供核对字段布局）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2362 Y=776
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2362 Y=776
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2362 Y=776
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2362 Y=776
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2359 Y=778
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2357 Y=780
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2355 Y=781
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2352 Y=783
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2347 Y=786
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2343 Y=786
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2337 Y=788
+[MOUSE]      (未知设备)                         dx=-917504 dy=65535
+[MOUSE]      (未知设备)                         dx=-1114112 dy=65535
+[MOUSE]      (未知设备)                         dx=-1114112 dy=131071
+[MOUSE]      (未知设备)                         dx=-917504 dy=196607
+[MOUSE]      (未知设备)                         dx=-655360 dy=262143
+[MOUSE]      (未知设备)                         dx=-720896 dy=196607
+[MOUSE]      (未知设备)                         dx=-589824 dy=196607
+[MOUSE]      (未知设备)                         dx=-589824 dy=262143
+[MOUSE]      (未知设备)                         dx=-524288 dy=196607
+[MOUSE]      (未知设备)                         dx=-458752 dy=262143
+[MOUSE]      (未知设备)                         dx=-524288 dy=262143
+[MOUSE]      (未知设备)                         dx=-524288 dy=196607
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- X=1708 Y=735
+ETD2303&Col03                  （上一秒省略 91 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1946 Y=867
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1946 Y=867
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1946 Y=867
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1930 Y=850
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1911 Y=833
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1890 Y=815
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1865 Y=798
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1840 Y=783
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1811 Y=766
+(未知设备)                         （上一秒省略 69 条）
+[MOUSE]      (未知设备)                         dx=-786432 dy=-393217
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1788 Y=754
+[MOUSE]      (未知设备)                         dx=-655360 dy=-262145
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1773 Y=748
+[MOUSE]      (未知设备)                         dx=-393216 dy=-65537
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1755 Y=741
+[MOUSE]      (未知设备)                         dx=-524288 dy=-131073
+[MOUSE]      (未知设备)                         dx=-524288 dy=-131073
+[MOUSE]      (未知设备)                         dx=-524288 dy=-131073
+[MOUSE]      (未知设备)                         dx=-458752 dy=-196609
+[MOUSE]      (未知设备)                         dx=-524288 dy=-131073
+[MOUSE]      (未知设备)                         dx=-589824 dy=-196609
+[MOUSE]      (未知设备)                         dx=-655360 dy=-196609
+[MOUSE]      (未知设备)                         dx=-458752 dy=-196609
+[MOUSE]      (未知设备)                         dx=-524288 dy=-262145
+VID_046D&PID_C09D&MI_00        （上一秒省略 121 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+ETD2303&Col03                  （上一秒省略 133 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1638 Y=518
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1648 Y=525
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1659 Y=535
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1669 Y=547
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1683 Y=564
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1692 Y=581
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1706 Y=607
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1717 Y=632
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1730 Y=661
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1747 Y=705
+(未知设备)                         （上一秒省略 134 条）
+[MOUSE]      (未知设备)                         dx=458752 dy=1245184
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1760 Y=759
+[MOUSE]      (未知设备)                         dx=327680 dy=1441792
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1772 Y=807
+[MOUSE]      (未知设备)                         dx=327680 dy=1310720
+[MOUSE]      (未知设备)                         dx=262144 dy=589824
+[MOUSE]      (未知设备)                         dx=196608 dy=655360
+[MOUSE]      (未知设备)                         dx=131072 dy=983040
+[MOUSE]      (未知设备)                         dx=196608 dy=1114112
+[MOUSE]      (未知设备)                         dx=131072 dy=983040
+[MOUSE]      (未知设备)                         dx=196608 dy=655360
+[MOUSE]      (未知设备)                         dx=196608 dy=655360
+[MOUSE]      (未知设备)                         dx=131072 dy=655360
+[MOUSE]      (未知设备)                         dx=196608 dy=655360
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- X=1694 Y=640
+ETD2303&Col03                  （上一秒省略 118 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1915 Y=499
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1915 Y=499
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1915 Y=499
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1902 Y=491
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1879 Y=476
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1859 Y=463
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2300 Y=1160
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1838 Y=445
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2300 Y=1160
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1822 Y=432
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2300 Y=1158
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1812 Y=427
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2294 Y=1152
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1803 Y=423
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2289 Y=1146
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1793 Y=419
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1139
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1781 Y=416
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2266 Y=1131
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1772 Y=414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2250 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1764 Y=413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2229 Y=1115
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1756 Y=413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2210 Y=1110
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1741 Y=413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2182 Y=1102
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1724 Y=414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2156 Y=1098
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1705 Y=415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2136 Y=1095
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1681 Y=415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2112 Y=1094
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1656 Y=415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2089 Y=1094
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1632 Y=415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2069 Y=1094
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1610 Y=415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2055 Y=1092
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1586 Y=414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2036 Y=1089
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1560 Y=412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2013 Y=1083
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1537 Y=410
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1989 Y=1078
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1507 Y=403
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1956 Y=1069
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1483 Y=397
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1923 Y=1061
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1461 Y=392
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1894 Y=1052
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1432 Y=386
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1860 Y=1039
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1402 Y=379
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1830 Y=1029
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1379 Y=375
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1806 Y=1021
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1348 Y=366
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1787 Y=1011
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1320 Y=359
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1771 Y=1002
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1303 Y=353
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1757 Y=998
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1281 Y=345
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1736 Y=997
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1266 Y=341
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1720 Y=997
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1255 Y=341
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1708 Y=995
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1246 Y=343
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1698 Y=996
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1242 Y=344
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1694 Y=997
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1240 Y=346
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1692 Y=998
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1240 Y=345
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1691 Y=1000
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1240 Y=345
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1689 Y=1001
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1240 Y=345
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1688 Y=1000
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1240 Y=346
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1688 Y=1002
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1243 Y=347
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1688 Y=1002
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1245 Y=348
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1689 Y=1002
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1256 Y=353
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1690 Y=1004
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1292 Y=360
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1703 Y=1010
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1356 Y=373
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1727 Y=1025
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1442 Y=390
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1812 Y=1066
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1511 Y=407
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1892 Y=1098
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1558 Y=420
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1953 Y=1118
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1641 Y=439
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2037 Y=1145
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1710 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2107 Y=1174
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1767 Y=470
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2166 Y=1205
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1816 Y=483
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2221 Y=1227
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1862 Y=495
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2271 Y=1247
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1927 Y=512
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2333 Y=1267
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1971 Y=520
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2378 Y=1282
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2010 Y=524
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2419 Y=1295
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2037 Y=529
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2453 Y=1306
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2073 Y=530
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2492 Y=1314
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2105 Y=529
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2530 Y=1321
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2126 Y=527
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2556 Y=1320
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2139 Y=526
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2575 Y=1321
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2152 Y=522
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2593 Y=1321
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2160 Y=517
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2606 Y=1319
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2168 Y=513
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2617 Y=1318
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2175 Y=510
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2625 Y=1317
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2180 Y=505
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2635 Y=1312
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2183 Y=499
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2645 Y=1308
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2187 Y=492
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2654 Y=1303
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2186 Y=489
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2660 Y=1300
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2187 Y=484
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2663 Y=1297
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2186 Y=480
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2666 Y=1295
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2186 Y=478
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2666 Y=1295
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2183 Y=476
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2666 Y=1294
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2182 Y=473
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2665 Y=1292
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2178 Y=472
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2666 Y=1293
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2175 Y=470
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2664 Y=1291
+VID_046D&PID_C09D&MI_00        （上一秒省略 8 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2170 Y=467
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2660 Y=1291
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2163 Y=466
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2657 Y=1290
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2153 Y=466
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2649 Y=1289
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2133 Y=467
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2631 Y=1286
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2107 Y=470
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2607 Y=1282
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2069 Y=474
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2564 Y=1275
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2038 Y=481
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2521 Y=1271
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2013 Y=488
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2478 Y=1268
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1982 Y=498
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2444 Y=1265
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1952 Y=505
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2415 Y=1262
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1925 Y=511
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2386 Y=1260
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1889 Y=519
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2346 Y=1260
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1859 Y=525
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2313 Y=1261
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1836 Y=532
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2286 Y=1261
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1802 Y=538
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2242 Y=1262
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1767 Y=547
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2196 Y=1262
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1737 Y=555
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2159 Y=1261
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1713 Y=559
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2128 Y=1258
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1687 Y=564
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2099 Y=1256
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1661 Y=565
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2079 Y=1254
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1640 Y=564
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1251
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1609 Y=560
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2030 Y=1248
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1585 Y=556
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2007 Y=1244
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1566 Y=551
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1987 Y=1236
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1545 Y=545
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1964 Y=1228
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1529 Y=538
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1946 Y=1220
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1519 Y=531
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1932 Y=1214
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1503 Y=520
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1916 Y=1204
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1488 Y=510
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1903 Y=1193
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1481 Y=502
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1893 Y=1181
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1471 Y=495
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1885 Y=1171
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1462 Y=486
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1877 Y=1155
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1457 Y=472
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1872 Y=1137
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1451 Y=457
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1865 Y=1117
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1449 Y=444
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1863 Y=1099
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1448 Y=431
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1863 Y=1086
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1449 Y=421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1865 Y=1071
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1450 Y=409
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1867 Y=1056
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1450 Y=397
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1873 Y=1043
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1455 Y=379
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1879 Y=1022
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1459 Y=363
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1887 Y=1003
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1462 Y=352
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1896 Y=990
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1469 Y=336
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1906 Y=971
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1478 Y=322
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1916 Y=955
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1485 Y=310
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1924 Y=943
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1499 Y=293
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1937 Y=931
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1513 Y=280
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1949 Y=922
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1527 Y=271
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1962 Y=915
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1546 Y=260
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1979 Y=906
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1567 Y=253
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1996 Y=902
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1591 Y=249
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2010 Y=902
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1626 Y=246
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2040 Y=903
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1656 Y=245
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2073 Y=909
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1681 Y=246
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2104 Y=918
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1710 Y=253
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2142 Y=934
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1737 Y=260
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2175 Y=951
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1766 Y=264
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2206 Y=970
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1802 Y=272
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2247 Y=990
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1831 Y=283
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2277 Y=1008
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1853 Y=297
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2299 Y=1029
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1878 Y=310
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2323 Y=1048
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1905 Y=324
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2347 Y=1066
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1935 Y=341
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2374 Y=1088
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1966 Y=359
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2402 Y=1110
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1989 Y=375
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2422 Y=1129
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2003 Y=384
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2432 Y=1141
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2018 Y=399
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2442 Y=1158
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2026 Y=413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2452 Y=1173
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2030 Y=421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2455 Y=1181
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2031 Y=431
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2456 Y=1191
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2031 Y=437
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2456 Y=1200
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2030 Y=441
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2455 Y=1204
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2027 Y=448
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2452 Y=1208
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2020 Y=453
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2446 Y=1213
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2016 Y=457
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2439 Y=1217
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2006 Y=462
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2430 Y=1220
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1991 Y=469
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2415 Y=1222
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1960 Y=480
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2379 Y=1226
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1922 Y=492
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2338 Y=1227
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1885 Y=499
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2302 Y=1225
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1867 Y=501
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2284 Y=1223
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1846 Y=502
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2256 Y=1222
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1824 Y=502
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2229 Y=1219
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1799 Y=502
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2206 Y=1211
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1766 Y=500
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2174 Y=1201
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1736 Y=497
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2144 Y=1190
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1715 Y=490
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2123 Y=1180
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1687 Y=484
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2099 Y=1169
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1658 Y=476
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2075 Y=1156
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1632 Y=468
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2052 Y=1143
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1597 Y=457
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2026 Y=1130
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1569 Y=446
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2007 Y=1116
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1549 Y=435
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1989 Y=1104
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1518 Y=418
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1964 Y=1088
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1489 Y=401
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1941 Y=1071
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1460 Y=387
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1922 Y=1052
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1431 Y=363
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1892 Y=1031
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1403 Y=343
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1868 Y=1010
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1374 Y=329
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1853 Y=990
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1341 Y=310
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1830 Y=965
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1314 Y=292
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1813 Y=946
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1291 Y=276
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1800 Y=928
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1267 Y=255
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1785 Y=905
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1252 Y=239
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1774 Y=887
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1243 Y=229
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1763 Y=873
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1238 Y=214
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1756 Y=855
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1235 Y=202
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1751 Y=840
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1234 Y=195
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1751 Y=830
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1233 Y=188
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1750 Y=821
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1235 Y=182
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1753 Y=812
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1238 Y=175
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1758 Y=799
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1244 Y=166
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1766 Y=788
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1254 Y=157
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1776 Y=777
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1268 Y=147
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1787 Y=766
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1292 Y=139
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1799 Y=758
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1320 Y=132
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1816 Y=753
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1351 Y=127
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1836 Y=749
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1385 Y=124
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1874 Y=749
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1419 Y=123
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1917 Y=751
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1444 Y=118
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1950 Y=754
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1474 Y=115
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1988 Y=762
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1506 Y=114
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2015 Y=770
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1536 Y=114
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2060 Y=782
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1561 Y=114
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2101 Y=791
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1590 Y=116
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2128 Y=803
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1618 Y=120
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2154 Y=814
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1642 Y=122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2181 Y=826
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1671 Y=126
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2216 Y=842
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1697 Y=133
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2250 Y=860
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1713 Y=138
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2273 Y=878
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1732 Y=145
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2293 Y=895
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1761 Y=156
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2311 Y=908
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1800 Y=171
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2335 Y=929
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1830 Y=184
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2364 Y=956
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1872 Y=202
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2395 Y=990
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1918 Y=227
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2423 Y=1025
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1963 Y=259
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2443 Y=1054
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2000 Y=293
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2467 Y=1089
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2034 Y=324
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2491 Y=1123
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2070 Y=353
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2512 Y=1153
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2095 Y=376
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2528 Y=1179
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2115 Y=398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2541 Y=1204
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2132 Y=429
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2551 Y=1228
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2145 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2557 Y=1251
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2151 Y=478
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2557 Y=1272
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2149 Y=486
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2556 Y=1281
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2145 Y=498
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2548 Y=1294
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2136 Y=511
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2534 Y=1303
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2126 Y=519
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2521 Y=1307
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2098 Y=530
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2497 Y=1310
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2069 Y=537
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2468 Y=1310
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2044 Y=542
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2439 Y=1306
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=2000 Y=551
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2390 Y=1301
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1948 Y=559
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2338 Y=1296
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1897 Y=566
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2287 Y=1291
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1857 Y=572
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2234 Y=1289
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1808 Y=578
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2170 Y=1285
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1754 Y=583
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2109 Y=1279
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1709 Y=589
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2064 Y=1279
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1647 Y=593
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2003 Y=1279
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1594 Y=594
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1949 Y=1279
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1558 Y=597
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1899 Y=1276
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1514 Y=598
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1842 Y=1272
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1473 Y=598
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1796 Y=1265
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1444 Y=595
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1778 Y=1263
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1413 Y=591
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1750 Y=1257
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1383 Y=588
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1723 Y=1251
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1359 Y=583
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1696 Y=1248
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1323 Y=577
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1668 Y=1239
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1293 Y=572
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1646 Y=1231
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1280 Y=565
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1635 Y=1227
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1266 Y=559
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1625 Y=1221
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1257 Y=554
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1616 Y=1216
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1251 Y=550
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1609 Y=1211
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1246 Y=544
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1603 Y=1208
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1244 Y=542
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1601 Y=1208
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1244 Y=542
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1601 Y=1205
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1244 Y=541
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1602 Y=1205
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1244 Y=541
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1602 Y=1202
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1245 Y=540
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1603 Y=1202
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1246 Y=537
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1603 Y=1201
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1248 Y=536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1606 Y=1200
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1250 Y=533
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1612 Y=1197
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1257 Y=530
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1622 Y=1192
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1284 Y=519
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1644 Y=1185
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1324 Y=505
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1676 Y=1176
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1385 Y=494
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1719 Y=1162
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1443 Y=486
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1768 Y=1152
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1478 Y=483
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1801 Y=1149
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1508 Y=477
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1825 Y=1147
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1539 Y=473
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1858 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1559 Y=468
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1887 Y=1139
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1580 Y=461
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1914 Y=1136
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1605 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1940 Y=1134
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1624 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1959 Y=1132
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1640 Y=448
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1975 Y=1129
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1659 Y=444
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=1994 Y=1129
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1673 Y=442
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2009 Y=1129
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1689 Y=442
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2019 Y=1131
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1703 Y=442
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2029 Y=1131
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1712 Y=445
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2036 Y=1134
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1717 Y=447
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2041 Y=1136
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1722 Y=448
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2047 Y=1136
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1726 Y=450
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2051 Y=1138
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1727 Y=450
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2054 Y=1140
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2056 Y=1141
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2056 Y=1141
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2056 Y=1141
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1728 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1729 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1727 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1727 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1726 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1143
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1725 Y=451
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1143
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1725 Y=453
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1145
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1723 Y=453
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1145
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1723 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1145
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1721 Y=455
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1147
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1719 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1148
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1718 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2057 Y=1150
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1717 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2056 Y=1153
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1716 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2055 Y=1155
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=- X=1716 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=- X=2055 Y=1155
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1357 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2426 Y=1398
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1353 Y=425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2422 Y=1400
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2168 Y=675
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1351 Y=426
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2420 Y=1402
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2166 Y=676
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1349 Y=426
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2418 Y=1402
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2165 Y=676
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1346 Y=426
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2415 Y=1403
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2161 Y=676
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1343 Y=428
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2412 Y=1404
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2159 Y=678
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1341 Y=430
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2410 Y=1405
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2157 Y=679
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1338 Y=431
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2407 Y=1406
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2154 Y=680
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1336 Y=433
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2404 Y=1407
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2152 Y=681
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1333 Y=435
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2401 Y=1408
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2149 Y=682
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1331 Y=437
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2397 Y=1409
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2146 Y=683
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1328 Y=439
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2393 Y=1410
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2143 Y=684
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1325 Y=441
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2388 Y=1411
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2139 Y=686
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1322 Y=443
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2384 Y=1412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2136 Y=687
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1319 Y=445
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2379 Y=1413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2131 Y=688
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1315 Y=448
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2375 Y=1414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2127 Y=690
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1312 Y=450
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2371 Y=1416
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2122 Y=691
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1308 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2365 Y=1417
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2117 Y=693
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1303 Y=457
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2359 Y=1418
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2112 Y=694
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1297 Y=461
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2352 Y=1419
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2105 Y=697
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1290 Y=465
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2344 Y=1421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2096 Y=700
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1286 Y=468
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2340 Y=1422
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2091 Y=700
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1283 Y=470
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2336 Y=1422
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2088 Y=703
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1278 Y=473
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2331 Y=1423
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2082 Y=703
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1274 Y=475
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2327 Y=1422
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2079 Y=705
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1272 Y=477
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2324 Y=1423
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2073 Y=705
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1269 Y=479
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2320 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2069 Y=707
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1266 Y=480
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2317 Y=1424
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2066 Y=707
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1263 Y=481
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2314 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2063 Y=708
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1261 Y=483
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2312 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2059 Y=707
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1258 Y=483
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2309 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2057 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1256 Y=485
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2307 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2054 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1254 Y=486
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2305 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2051 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1253 Y=487
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2304 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2049 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1251 Y=487
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2302 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2047 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1250 Y=487
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2302 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2046 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1248 Y=488
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2299 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2043 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1247 Y=489
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2297 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2041 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1246 Y=490
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2296 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2040 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1244 Y=489
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2294 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2037 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1243 Y=490
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2293 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2036 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1242 Y=490
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2292 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2035 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1241 Y=492
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2291 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2034 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1240 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2290 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2033 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1238 Y=492
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2289 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2032 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1237 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2288 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2030 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1238 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2287 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2029 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1237 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2286 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2029 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1237 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2286 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2028 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1235 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2284 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2025 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1235 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2284 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2025 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1234 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2283 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2024 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1233 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2282 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2023 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1234 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2283 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2024 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1233 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2282 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2023 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2281 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2022 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2281 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2021 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2021 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=493
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2021 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=491
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=492
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=490
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1425
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=490
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1423
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=488
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1424
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=487
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1422
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=708
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=487
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1423
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=709
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=485
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=707
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=484
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1420
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=706
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=482
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=707
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=481
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2281 Y=1419
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=705
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=481
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2280 Y=1420
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=706
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=480
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2281 Y=1419
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=705
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=479
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2282 Y=1418
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=704
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=477
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2283 Y=1417
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=703
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=476
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2284 Y=1416
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=702
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=475
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2283 Y=1417
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=703
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=474
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2285 Y=1415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=701
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1230 Y=472
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2284 Y=1416
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=702
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=472
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2286 Y=1414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=700
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=469
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2286 Y=1414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=700
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=469
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2287 Y=1413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=699
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=468
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2288 Y=1412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2018 Y=698
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=467
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2288 Y=1413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2018 Y=699
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=465
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2288 Y=1412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2018 Y=698
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=465
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2289 Y=1412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2018 Y=698
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=463
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2289 Y=1412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=698
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=462
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2290 Y=1413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=699
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1231 Y=460
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2292 Y=1412
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=698
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=459
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2293 Y=1414
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=699
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=458
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2294 Y=1413
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=699
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=458
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2295 Y=1415
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=701
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2296 Y=1416
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=702
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=456
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2297 Y=1417
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2017 Y=701
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=455
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2299 Y=1419
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2018 Y=702
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2300 Y=1420
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=704
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 X=2301 Y=1421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=1 X=2019 Y=705
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=3 CID=0 TIP=1 X=1232 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=- X=2301 Y=1421
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=2 TIP=- X=2019 Y=705
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=1232 Y=454
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- X=1232 Y=454
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2173 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2173 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2173 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2173 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2173 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2173 Y=1122
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2170 Y=1123
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2167 Y=1126
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2164 Y=1129
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2160 Y=1135
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2155 Y=1142
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 X=2151 Y=1149
+(未知设备)                         （上一秒省略 98 条）
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=196608
+[MOUSE]      (未知设备)                         dx=-65536 dy=196607
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=65536 dy=65536
+[MOUSE]      (未知设备)                         dx=    0 dy=65536
+[MOUSE]      (未知设备)                         dx=    0 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- X=2136 Y=1213
+VID_046D&PID_C09D&MI_00        （上一秒省略 238 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 4 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 891 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=262144 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 468 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+
+------------------------------------------------------------------------------
+采集汇总
+------------------------------------------------------------------------------
+设备                             类型      分组键                 事件数  说明
+----------------------------------------------------------------------------------------------------
+\\?\VIRTUAL_DIGITIZER          HID     \\?\VIRTUAL_DIGITIZER        0  
+XMCCA001                       HID     4&2f702bbf&1          0  
+VID_046D&PID_C09D&MI_01&Col05  HID     7&1d3ce2a6&0          0  
+ETD2303&Col04                  T3      5&1d09e9c1&0          0  
+VID_046D&PID_C09D&MI_01&Col04  HID     7&1d3ce2a6&0          0  
+ETD2303&Col03                  HID     5&1d09e9c1&0       1346  ★ 触控板多触点集合，最大接触点数=3
+ETD2303&Col02                  HID     5&1d09e9c1&0          0  
+VID_046D&PID_C09D&MI_01&Col02  HID     7&1d3ce2a6&0          0  
+GVInput&Col05                  HID     1&2d595ca7&0          0  
+GVInput&Col04                  HID     1&2d595ca7&0          0  
+MSFT0001                       KEYBD   4&1d0fd433            0  
+VID_046D&PID_C09D&MI_01&Col01  KEYBD   7&1d3ce2a6&0          0  
+GVInput&Col03                  KEYBD   1&2d595ca7&0          0  
+ETD2303&Col01                  MOUSE   5&1d09e9c1&0          0  触控板硬件派生
+VID_046D&PID_C09D&MI_00        MOUSE   7&306cfee4&0       3060  外部鼠标
+GVInput&Col02                  MOUSE   1&2d595ca7&0          0  外部鼠标
+GVInput&Col01                  MOUSE   1&2d595ca7&0          0  外部鼠标
+MSFT0003                       MOUSE   4&1d0fd433            0  外部鼠标
+(未知设备)                         MOUSE                       345  外部鼠标
+
+------------------------------------------------------------------------------
+第 1 周判定素材
+------------------------------------------------------------------------------
+✓ 触控板多触点集合 : \\?\HID#ETD2303&Col03#5&1d09e9c1&0&0002#{4d1e55b2-f16f-11cf-88cb-001111000030}
+  分组键=5&1d09e9c1&0  HID 报文事件=1346  观察到的最大接触点数=3
+✓ 触控板物理设备分组键 : 5&1d09e9c1&0
+  外接鼠标设备数=5，事件数=3405（分组键与触控板不同 → 可被可靠排除）
+✓ 结论：触控板具备独立的可识别句柄，且能读到多触点报文 → 第 1 周目标达成。

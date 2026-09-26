@@ -1,0 +1,1429 @@
+﻿TrackLink · 第 1 周可行性探测（触控板独立句柄 / 多触点 / 按键）
+------------------------------------------------------------------------------
+[注册成功] usagePage=0x01 usage=0x02（鼠标集合）
+[注册成功] usagePage=0x0D usage=0x05（触控板多触点集合）
+共发现 18 个 Raw Input 设备：
+
+类型      设备                             VID:PID     顶层集合           分组键            说明
+--------------------------------------------------------------------------------------------------------------
+HID     \\?\VIRTUAL_DIGITIZER          0000:0000   0x0D/0x04      \\?\VIRTUAL_DIGITIZER 
+HID     XMCCA001                       0000:0000   0x01/0x0C      4&2f702bbf&1   
+HID     VID_046D&PID_C09D&MI_01&Col05  046D:C09D   0xFF00/0x02    7&1d3ce2a6&0   
+T3      ETD2303&Col04                  0000:0000   -              5&1d09e9c1&0   
+HID     VID_046D&PID_C09D&MI_01&Col04  046D:C09D   0xFF00/0x01    7&1d3ce2a6&0   
+HID     ETD2303&Col03                  04F3:3083   0x0D/0x05      5&1d09e9c1&0   ★ 触控板多触点集合（0x0D/0x05 自动识别）
+HID     ETD2303&Col02                  04F3:3083   0xFF00/0x01    5&1d09e9c1&0   
+HID     VID_046D&PID_C09D&MI_01&Col02  046D:C09D   0x0C/0x01      7&1d3ce2a6&0   
+HID     GVInput&Col05                  00FF:BACC   0xFFAA/0xBB    1&2d595ca7&0   
+HID     GVInput&Col04                  00FF:BACC   0xFFEE/0xCC    1&2d595ca7&0   
+KEYBD   MSFT0001                       0004:0000   -              4&1d0fd433     
+KEYBD   VID_046D&PID_C09D&MI_01&Col01  0051:0000   -              7&1d3ce2a6&0   
+KEYBD   GVInput&Col03                  0051:0000   -              1&2d595ca7&0   
+MOUSE   ETD2303&Col01                  0080:0002   -              5&1d09e9c1&0   触控板硬件的鼠标集合（同分组键）
+MOUSE   VID_046D&PID_C09D&MI_00        0100:0010   -              7&306cfee4&0   外部/其他鼠标（分组键不同，可被过滤）
+MOUSE   GVInput&Col02                  0100:0005   -              1&2d595ca7&0   外部/其他鼠标（分组键不同，可被过滤）
+MOUSE   GVInput&Col01                  0100:0005   -              1&2d595ca7&0   外部/其他鼠标（分组键不同，可被过滤）
+MOUSE   MSFT0003                       0002:0003   -              4&1d0fd433     外部/其他鼠标（分组键不同，可被过滤）
+
+触控板多触点集合详情: \\?\HID#ETD2303&Col03#5&1d09e9c1&0&0002#{4d1e55b2-f16f-11cf-88cb-001111000030}
+  顶层集合      : usagePage=0x0D usage=0x05  (触控板多触点集合)
+  输入报文长度  : 12 字节
+  逻辑集合节点  : 2，输入按钮能力 3，输入值能力 6，输入数据索引数 9
+  值能力表（输入）:
+    rid=4 0x0D/0x51      元素=1  位宽=4   逻辑=0..15 物理=0..0 数据索引=2(x1)     链表=1 绝对
+    rid=4 0x01/0x30      元素=1  位宽=16  逻辑=0..3864 物理=0..487 数据索引=3(x1)     链表=1 绝对
+    rid=4 0x01/0x31      元素=1  位宽=16  逻辑=0..2499 物理=0..312 数据索引=4(x1)     链表=1 绝对
+    rid=4 0x0D/0x56      元素=1  位宽=16  逻辑=0..65535 物理=0..65535 数据索引=5(x1)     链表=0 绝对
+    rid=4 0x0D/0x54      元素=1  位宽=8   逻辑=0..127 物理=0..65535 数据索引=6(x1)     链表=0 绝对
+    rid=4 0x09/0xC5      元素=2  位宽=8   逻辑=0..1 物理=0..65535 数据索引=8(x2)     链表=0 绝对
+  按钮能力表（输入）:
+    rid=4 0x0D/0x42      数据索引=0         链表=1
+    rid=4 0x0D/0x47      数据索引=1         链表=1
+    rid=4 0x09/0x01      数据索引=7         链表=0
+  多触点字段    : ContactCount=有 TipSwitch=有 ContactId=有 X=有 Y=有
+
+------------------------------------------------------------------------------
+请在窗口中实时观察，并依次操作触控板：
+  1) 单指滑动      → X/Y 连续变化，CC=1 CID=0 TIP=1
+  2) 双指上下滑    → 每帧 CC=2 CID=0 与 CC=0 CID=1 交替
+  3) 轻点 / 按下   → 出现 ★ 按键提示（BTN=1）
+  4) 再动外接鼠标  → 应当被窗口过滤掉（分组键不同）
+观察完成后直接关闭本窗口即可。
+------------------------------------------------------------------------------
+[设备接入] \\?\HID#ETD2303&Col01#5&1d09e9c1&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#VID_046D&PID_C09D&MI_00#7&306cfee4&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#GVInput&Col02#1&2d595ca7&0&0001#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#GVInput&Col01#1&2d595ca7&0&0000#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\ACPI#MSFT0003#4&1d0fd433&0#{378de44c-56ef-11d1-bc8c-00a0c91405dd}
+[设备接入] \\?\HID#ETD2303&Col03#5&1d09e9c1&0&0002#{4d1e55b2-f16f-11cf-88cb-001111000030}
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=327680 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=262144 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=327680 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=327680 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=327680 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=393216 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=327680 dy=65536
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2540 Y=949
+   HidP_GetData 成功，数据项=7；GetUsageValue 状态：0x0D/0x54=0xC0110001 0x0D/0x51=0xC0110001 0x0D/0x42=0xC0110001 0x01/0x30=0xC0110001 0x01/0x31=0xC0110001   解码字段明细: [0x0D/0x42]=1 [0x0D/0x47]=1 [0x0D/0x51]=0 [0x01/0x30]=2540 [0x01/0x31]=949 [0x0D/0x56]=48696 [0x0D/0x54]=1
+   报文 hex=04 03 EC 09 B5 03 38 BE 01 80 1B 44
+   （以上为该集合的首条报文，供核对字段布局）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2540 Y=949 hex=04 03 EC 09 B5 03 BA BE 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2540 Y=949 hex=04 03 EC 09 B5 03 00 BF 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2540 Y=949 hex=04 03 EC 09 B5 03 46 BF 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2540 Y=949 hex=04 03 EC 09 B5 03 8C BF 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2540 Y=949 hex=04 03 EC 09 B5 03 D2 BF 01 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2534 Y=956 hex=04 03 E6 09 BC 03 18 C0 01 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2528 Y=966 hex=04 03 E0 09 C6 03 5E C0 01 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2486 Y=1016 hex=04 03 B6 09 F8 03 A4 C0 01 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2413 Y=1099 hex=04 03 6D 09 4B 04 EA C0 01 80 1C 33
+[MOUSE]      (未知设备)                         dx=-2031616 dy=2359295
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2351 Y=1165 hex=04 03 2F 09 8D 04 30 C1 01 80 1C 44
+[MOUSE]      (未知设备)                         dx=-1703936 dy=1835007
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2324 Y=1193 hex=04 03 14 09 A9 04 76 C1 01 80 1C 44
+[MOUSE]      (未知设备)                         dx=-786432 dy=851967
+[MOUSE]      (未知设备)                         dx=-1507328 dy=1572863
+[MOUSE]      (未知设备)                         dx=-1376256 dy=1507327
+[MOUSE]      (未知设备)                         dx=-1114112 dy=1114111
+[MOUSE]      (未知设备)                         dx=-1179648 dy=983039
+[MOUSE]      (未知设备)                         dx=-983040 dy=1114111
+[MOUSE]      (未知设备)                         dx=-983040 dy=1048575
+[MOUSE]      (未知设备)                         dx=-1048576 dy=983039
+[MOUSE]      (未知设备)                         dx=-589824 dy=589823
+[MOUSE]      (未知设备)                         dx=-720896 dy=524287
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=2720 Y=1072 hex=04 01 A0 0A 30 04 52 DB 01 88 10 11
+ETD2303&Col03                  （上一秒省略 93 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2062 Y=1627 hex=04 03 0E 08 5B 06 A6 EB 01 80 15 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1983 Y=1584 hex=04 03 BF 07 30 06 EC EB 01 80 15 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1918 Y=1545 hex=04 03 7E 07 09 06 32 EC 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1918 Y=1545 hex=04 03 7E 07 09 06 78 EC 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1869 Y=1518 hex=04 03 4D 07 EE 05 BE EC 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1819 Y=1490 hex=04 03 1B 07 D2 05 04 ED 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1791 Y=1468 hex=04 03 FF 06 BC 05 4A ED 01 80 16 42
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1771 Y=1445 hex=04 03 EB 06 A5 05 90 ED 01 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1759 Y=1425 hex=04 03 DF 06 91 05 D6 ED 01 80 16 43
+(未知设备)                         （上一秒省略 76 条）
+[MOUSE]      (未知设备)                         dx=-327680 dy=-458753
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1739 Y=1397 hex=04 03 CB 06 75 05 1C EE 01 80 16 33
+[MOUSE]      (未知设备)                         dx=-524288 dy=-720897
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1725 Y=1370 hex=04 03 BD 06 5A 05 62 EE 01 80 16 43
+[MOUSE]      (未知设备)                         dx=-393216 dy=-655361
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1712 Y=1341 hex=04 03 B0 06 3D 05 A8 EE 01 80 17 43
+[MOUSE]      (未知设备)                         dx=-393216 dy=-786433
+[MOUSE]      (未知设备)                         dx=-196608 dy=-589825
+[MOUSE]      (未知设备)                         dx=-131072 dy=-983041
+[MOUSE]      (未知设备)                         dx=-65536 dy=-917505
+[MOUSE]      (未知设备)                         dx=    0 dy=-1048576
+[MOUSE]      (未知设备)                         dx=131072 dy=-983040
+[MOUSE]      (未知设备)                         dx=262144 dy=-1179648
+[MOUSE]      (未知设备)                         dx=196608 dy=-1179648
+[MOUSE]      (未知设备)                         dx=327680 dy=-917504
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=1709 Y=1013 hex=04 01 AD 06 F5 03 D0 FD 01 80 13 11
+VID_046D&PID_C09D&MI_00        （上一秒省略 368 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=-65537
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=-65537
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-65537
+ETD2303&Col03                  （上一秒省略 54 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1855 Y=1327 hex=04 03 3F 07 2F 05 70 58 01 80 15 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1855 Y=1327 hex=04 03 3F 07 2F 05 C0 58 01 80 15 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1855 Y=1326 hex=04 03 3F 07 2E 05 06 59 01 80 15 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1857 Y=1305 hex=04 03 41 07 19 05 4C 59 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1867 Y=1266 hex=04 03 4B 07 F2 04 92 59 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1881 Y=1230 hex=04 03 59 07 CE 04 D8 59 01 80 17 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1899 Y=1204 hex=04 03 6B 07 B4 04 1E 5A 01 80 17 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1916 Y=1186 hex=04 03 7C 07 A2 04 64 5A 01 80 17 44
+(未知设备)                         （上一秒省略 46 条）
+[MOUSE]      (未知设备)                         dx=458752 dy=-458752
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1940 Y=1164 hex=04 03 94 07 8C 04 AA 5A 01 80 17 43
+[MOUSE]      (未知设备)                         dx=655360 dy=-589824
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1961 Y=1149 hex=04 03 A9 07 7D 04 F0 5A 01 80 17 43
+[MOUSE]      (未知设备)                         dx=589824 dy=-458752
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1990 Y=1138 hex=04 03 C6 07 72 04 36 5B 01 80 17 44
+[MOUSE]      (未知设备)                         dx=786432 dy=-327680
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2016 Y=1129 hex=04 03 E0 07 69 04 7C 5B 01 80 17 44
+[MOUSE]      (未知设备)                         dx=720896 dy=-196608
+[MOUSE]      (未知设备)                         dx=720896 dy=65536
+[MOUSE]      (未知设备)                         dx=851968 dy=    0
+[MOUSE]      (未知设备)                         dx=655360 dy=131072
+[MOUSE]      (未知设备)                         dx=851968 dy=262144
+[MOUSE]      (未知设备)                         dx=786432 dy=196608
+[MOUSE]      (未知设备)                         dx=589824 dy=327680
+[MOUSE]      (未知设备)                         dx=458752 dy=327680
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=1901 Y=1255 hex=04 01 6D 07 E7 04 D2 64 01 80 16 11
+ETD2303&Col03                  （上一秒省略 33 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1545 Y=1810 hex=04 03 09 06 12 07 58 9D 01 80 14 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1545 Y=1810 hex=04 03 09 06 12 07 9E 9D 01 80 14 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1545 Y=1810 hex=04 03 09 06 12 07 E4 9D 01 80 14 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1564 Y=1792 hex=04 03 1C 06 00 07 2A 9E 01 80 15 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1613 Y=1754 hex=04 03 4D 06 DA 06 70 9E 01 80 16 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1650 Y=1726 hex=04 03 72 06 BE 06 B6 9E 01 80 16 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1672 Y=1713 hex=04 03 88 06 B1 06 FC 9E 01 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1701 Y=1701 hex=04 03 A5 06 A5 06 42 9F 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1724 Y=1693 hex=04 03 BC 06 9D 06 88 9F 01 80 16 33
+(未知设备)                         （上一秒省略 26 条）
+[MOUSE]      (未知设备)                         dx=589824 dy=-196608
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1745 Y=1686 hex=04 03 D1 06 96 06 CE 9F 01 80 16 34
+[MOUSE]      (未知设备)                         dx=589824 dy=-196608
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1764 Y=1685 hex=04 03 E4 06 95 06 14 A0 01 80 16 33
+[MOUSE]      (未知设备)                         dx=524288 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1780 Y=1687 hex=04 03 F4 06 97 06 5A A0 01 80 16 33
+[MOUSE]      (未知设备)                         dx=458752 dy=65536
+[MOUSE]      (未知设备)                         dx=262144 dy=65536
+[MOUSE]      (未知设备)                         dx=327680 dy=196608
+[MOUSE]      (未知设备)                         dx=196608 dy=131072
+[MOUSE]      (未知设备)                         dx=131072 dy=262144
+[MOUSE]      (未知设备)                         dx=196608 dy=196608
+[MOUSE]      (未知设备)                         dx=    0 dy=393216
+[MOUSE]      (未知设备)                         dx=65536 dy=327680
+[MOUSE]      (未知设备)                         dx=-196608 dy=589823
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=1567 Y=1888 hex=04 01 1F 06 60 07 F6 A9 01 88 11 11
+ETD2303&Col03                  （上一秒省略 34 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1731 Y=1852 hex=04 03 C3 06 3C 07 86 C9 01 80 10 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1731 Y=1852 hex=04 03 C3 06 3C 07 CC C9 01 80 10 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1731 Y=1852 hex=04 03 C3 06 3C 07 12 CA 01 80 10 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1731 Y=1852 hex=04 03 C3 06 3C 07 58 CA 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1735 Y=1848 hex=04 03 C7 06 38 07 9E CA 01 80 13 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1744 Y=1835 hex=04 03 D0 06 2B 07 E4 CA 01 80 14 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1759 Y=1822 hex=04 03 DF 06 1E 07 2A CB 01 80 14 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1780 Y=1804 hex=04 03 F4 06 0C 07 70 CB 01 80 15 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1809 Y=1783 hex=04 03 11 07 F7 06 B6 CB 01 80 15 43
+(未知设备)                         （上一秒省略 26 条）
+[MOUSE]      (未知设备)                         dx=786432 dy=-524288
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1833 Y=1771 hex=04 03 29 07 EB 06 FC CB 01 80 15 44
+[MOUSE]      (未知设备)                         dx=655360 dy=-393216
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1861 Y=1760 hex=04 03 45 07 E0 06 42 CC 01 80 15 44
+[MOUSE]      (未知设备)                         dx=786432 dy=-262144
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1888 Y=1749 hex=04 03 60 07 D5 06 88 CC 01 80 16 44
+[MOUSE]      (未知设备)                         dx=786432 dy=-327680
+[MOUSE]      (未知设备)                         dx=655360 dy=-65536
+[MOUSE]      (未知设备)                         dx=786432 dy=    0
+[MOUSE]      (未知设备)                         dx=589824 dy=131072
+[MOUSE]      (未知设备)                         dx=458752 dy=131072
+[MOUSE]      (未知设备)                         dx=458752 dy=65536
+[MOUSE]      (未知设备)                         dx=327680 dy=65536
+[MOUSE]      (未知设备)                         dx=327680 dy=196608
+[MOUSE]      (未知设备)                         dx=262144 dy=131072
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=1970 Y=1924 hex=04 01 B2 07 84 07 64 D2 01 80 11 11
+VID_046D&PID_C09D&MI_00        （上一秒省略 446 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 509 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+ETD2303&Col03                  （上一秒省略 20 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1608 Y=1714 hex=04 03 48 06 B2 06 F2 75 01 80 15 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1608 Y=1714 hex=04 03 48 06 B2 06 6A 76 02 80 15 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2137 Y=883 hex=04 13 59 08 73 03 6A 76 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1608 Y=1714 hex=04 03 48 06 B2 06 B0 76 02 80 15 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2137 Y=883 hex=04 13 59 08 73 03 B0 76 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1608 Y=1714 hex=04 03 48 06 B2 06 F6 76 02 80 16 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2137 Y=883 hex=04 13 59 08 73 03 F6 76 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1608 Y=1714 hex=04 03 48 06 B2 06 3C 77 02 80 17 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2137 Y=883 hex=04 13 59 08 73 03 3C 77 00 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1607 Y=1712 hex=04 03 47 06 B0 06 82 77 02 80 18 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2137 Y=883 hex=04 13 59 08 73 03 82 77 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1604 Y=1711 hex=04 03 44 06 AF 06 C8 77 02 80 18 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2137 Y=883 hex=04 13 59 08 73 03 C8 77 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1601 Y=1709 hex=04 03 41 06 AD 06 0E 78 02 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2132 Y=885 hex=04 13 54 08 75 03 0E 78 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1599 Y=1705 hex=04 03 3F 06 A9 06 54 78 02 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2128 Y=886 hex=04 13 50 08 76 03 54 78 00 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1593 Y=1702 hex=04 03 39 06 A6 06 9A 78 02 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2123 Y=885 hex=04 13 4B 08 75 03 9A 78 00 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1589 Y=1697 hex=04 03 35 06 A1 06 E0 78 02 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2116 Y=887 hex=04 13 44 08 77 03 E0 78 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1581 Y=1692 hex=04 03 2D 06 9C 06 26 79 02 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2106 Y=887 hex=04 13 3A 08 77 03 26 79 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1573 Y=1687 hex=04 03 25 06 97 06 6C 79 02 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2095 Y=887 hex=04 13 2F 08 77 03 6C 79 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1564 Y=1679 hex=04 03 1C 06 8F 06 B2 79 02 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2079 Y=887 hex=04 13 1F 08 77 03 B2 79 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1538 Y=1665 hex=04 03 02 06 81 06 F8 79 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2049 Y=887 hex=04 13 01 08 77 03 F8 79 00 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1504 Y=1650 hex=04 03 E0 05 72 06 3E 7A 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2010 Y=882 hex=04 13 DA 07 72 03 3E 7A 00 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1464 Y=1640 hex=04 03 B8 05 68 06 84 7A 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1966 Y=874 hex=04 13 AE 07 6A 03 84 7A 00 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1406 Y=1630 hex=04 03 7E 05 5E 06 CA 7A 02 80 1E 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1916 Y=865 hex=04 13 7C 07 61 03 CA 7A 00 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1362 Y=1624 hex=04 03 52 05 58 06 10 7B 02 80 1E 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1876 Y=860 hex=04 13 54 07 5C 03 10 7B 00 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1336 Y=1623 hex=04 03 38 05 57 06 56 7B 02 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1848 Y=857 hex=04 13 38 07 59 03 56 7B 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1297 Y=1622 hex=04 03 11 05 56 06 9C 7B 02 80 1F 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1812 Y=850 hex=04 13 14 07 52 03 9C 7B 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1258 Y=1619 hex=04 03 EA 04 53 06 E2 7B 02 80 1F 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1779 Y=843 hex=04 13 F3 06 4B 03 E2 7B 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1234 Y=1619 hex=04 03 D2 04 53 06 28 7C 02 80 1F 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1755 Y=843 hex=04 13 DB 06 4B 03 28 7C 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1205 Y=1616 hex=04 03 B5 04 50 06 6E 7C 02 80 1F 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1724 Y=835 hex=04 13 BC 06 43 03 6E 7C 00 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1173 Y=1611 hex=04 03 95 04 4B 06 B4 7C 02 80 1F 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1694 Y=825 hex=04 13 9E 06 39 03 B4 7C 00 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1147 Y=1608 hex=04 03 7B 04 48 06 FA 7C 02 80 1F 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1669 Y=818 hex=04 13 85 06 32 03 FA 7C 00 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1110 Y=1603 hex=04 03 56 04 43 06 40 7D 02 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1632 Y=812 hex=04 13 60 06 2C 03 40 7D 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1080 Y=1601 hex=04 03 38 04 41 06 86 7D 02 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1602 Y=807 hex=04 13 42 06 27 03 86 7D 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1055 Y=1601 hex=04 03 1F 04 41 06 CC 7D 02 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1579 Y=801 hex=04 13 2B 06 21 03 CC 7D 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1024 Y=1599 hex=04 03 00 04 3F 06 12 7E 02 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1551 Y=794 hex=04 13 0F 06 1A 03 12 7E 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=999 Y=1596 hex=04 03 E7 03 3C 06 58 7E 02 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1527 Y=790 hex=04 13 F7 05 16 03 58 7E 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=976 Y=1596 hex=04 03 D0 03 3C 06 9E 7E 02 80 20 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1505 Y=784 hex=04 13 E1 05 10 03 9E 7E 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=950 Y=1593 hex=04 03 B6 03 39 06 E4 7E 02 80 1F 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1485 Y=777 hex=04 13 CD 05 09 03 E4 7E 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=932 Y=1592 hex=04 03 A4 03 38 06 2A 7F 02 80 1F 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1466 Y=774 hex=04 13 BA 05 06 03 2A 7F 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=919 Y=1591 hex=04 03 97 03 37 06 70 7F 02 80 1F 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1453 Y=774 hex=04 13 AD 05 06 03 70 7F 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=909 Y=1590 hex=04 03 8D 03 36 06 B6 7F 02 80 1F 54
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1442 Y=773 hex=04 13 A2 05 05 03 B6 7F 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=898 Y=1586 hex=04 03 82 03 32 06 FC 7F 02 80 1E 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1433 Y=771 hex=04 13 99 05 03 03 FC 7F 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=889 Y=1580 hex=04 03 79 03 2C 06 42 80 02 80 1E 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1427 Y=769 hex=04 13 93 05 01 03 42 80 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=887 Y=1580 hex=04 03 77 03 2C 06 88 80 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1425 Y=768 hex=04 13 91 05 00 03 88 80 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=883 Y=1580 hex=04 03 73 03 2C 06 CE 80 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1423 Y=766 hex=04 13 8F 05 FE 02 CE 80 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=882 Y=1580 hex=04 03 72 03 2C 06 14 81 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1423 Y=765 hex=04 13 8F 05 FD 02 14 81 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=881 Y=1579 hex=04 03 71 03 2B 06 5A 81 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1423 Y=765 hex=04 13 8F 05 FD 02 5A 81 00 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=881 Y=1579 hex=04 03 71 03 2B 06 A0 81 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1423 Y=764 hex=04 13 8F 05 FC 02 A0 81 00 80 1B 53
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=882 Y=1579 hex=04 03 72 03 2B 06 E6 81 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1423 Y=764 hex=04 13 8F 05 FC 02 E6 81 00 80 1B 53
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=883 Y=1579 hex=04 03 73 03 2B 06 2C 82 02 80 1D 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1424 Y=763 hex=04 13 90 05 FB 02 2C 82 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=885 Y=1579 hex=04 03 75 03 2B 06 72 82 02 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1425 Y=763 hex=04 13 91 05 FB 02 72 82 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=887 Y=1579 hex=04 03 77 03 2B 06 B8 82 02 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1427 Y=763 hex=04 13 93 05 FB 02 B8 82 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=889 Y=1580 hex=04 03 79 03 2C 06 FE 82 02 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1429 Y=763 hex=04 13 95 05 FB 02 FE 82 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=892 Y=1581 hex=04 03 7C 03 2D 06 44 83 02 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1433 Y=763 hex=04 13 99 05 FB 02 44 83 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=896 Y=1581 hex=04 03 80 03 2D 06 8A 83 02 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1439 Y=763 hex=04 13 9F 05 FB 02 8A 83 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=901 Y=1582 hex=04 03 85 03 2E 06 D0 83 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1446 Y=764 hex=04 13 A6 05 FC 02 D0 83 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=907 Y=1584 hex=04 03 8B 03 30 06 16 84 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1457 Y=764 hex=04 13 B1 05 FC 02 16 84 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=916 Y=1584 hex=04 03 94 03 30 06 5C 84 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1470 Y=766 hex=04 13 BE 05 FE 02 5C 84 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=926 Y=1585 hex=04 03 9E 03 31 06 A2 84 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1485 Y=767 hex=04 13 CD 05 FF 02 A2 84 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=949 Y=1588 hex=04 03 B5 03 34 06 E8 84 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1509 Y=769 hex=04 13 E5 05 01 03 E8 84 00 80 1B 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=976 Y=1588 hex=04 03 D0 03 34 06 2E 85 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1538 Y=772 hex=04 13 02 06 04 03 2E 85 00 80 1B 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1007 Y=1588 hex=04 03 EF 03 34 06 74 85 02 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1581 Y=772 hex=04 13 2D 06 04 03 74 85 00 80 1B 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1047 Y=1585 hex=04 03 17 04 31 06 BA 85 02 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1624 Y=773 hex=04 13 58 06 05 03 BA 85 00 80 1B 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1088 Y=1579 hex=04 03 40 04 2B 06 00 86 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1662 Y=773 hex=04 13 7E 06 05 03 00 86 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1126 Y=1573 hex=04 03 66 04 25 06 46 86 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1696 Y=772 hex=04 13 A0 06 04 03 46 86 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1155 Y=1567 hex=04 03 83 04 1F 06 8C 86 02 80 18 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1727 Y=769 hex=04 13 BF 06 01 03 8C 86 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1187 Y=1559 hex=04 03 A3 04 17 06 D2 86 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1762 Y=767 hex=04 13 E2 06 FF 02 D2 86 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1217 Y=1551 hex=04 03 C1 04 0F 06 18 87 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1792 Y=763 hex=04 13 00 07 FB 02 18 87 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1249 Y=1546 hex=04 03 E1 04 0A 06 5E 87 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1821 Y=759 hex=04 13 1D 07 F7 02 5E 87 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1282 Y=1539 hex=04 03 02 05 03 06 A4 87 02 80 18 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1852 Y=756 hex=04 13 3C 07 F4 02 A4 87 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1315 Y=1532 hex=04 03 23 05 FC 05 EA 87 02 80 18 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1883 Y=753 hex=04 13 5B 07 F1 02 EA 87 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1350 Y=1526 hex=04 03 46 05 F6 05 30 88 02 80 18 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1915 Y=750 hex=04 13 7B 07 EE 02 30 88 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1397 Y=1521 hex=04 03 75 05 F1 05 76 88 02 80 18 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=1960 Y=748 hex=04 13 A8 07 EC 02 76 88 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1442 Y=1513 hex=04 03 A2 05 E9 05 BC 88 02 80 18 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2004 Y=747 hex=04 13 D4 07 EB 02 BC 88 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1471 Y=1507 hex=04 03 BF 05 E3 05 02 89 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2040 Y=745 hex=04 13 F8 07 E9 02 02 89 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1513 Y=1499 hex=04 03 E9 05 DB 05 48 89 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2071 Y=744 hex=04 13 17 08 E8 02 48 89 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1560 Y=1493 hex=04 03 18 06 D5 05 8E 89 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2105 Y=742 hex=04 13 39 08 E6 02 8E 89 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1619 Y=1487 hex=04 03 53 06 CF 05 D4 89 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2150 Y=741 hex=04 13 66 08 E5 02 D4 89 00 80 1A 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1673 Y=1483 hex=04 03 89 06 CB 05 1A 8A 02 80 18 42
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2200 Y=743 hex=04 13 98 08 E7 02 1A 8A 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1722 Y=1478 hex=04 03 BA 06 C6 05 60 8A 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2246 Y=746 hex=04 13 C6 08 EA 02 60 8A 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1767 Y=1471 hex=04 03 E7 06 BF 05 A6 8A 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2290 Y=747 hex=04 13 F2 08 EB 02 A6 8A 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1820 Y=1468 hex=04 03 1C 07 BC 05 EC 8A 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2334 Y=750 hex=04 13 1E 09 EE 02 EC 8A 00 80 18 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1892 Y=1464 hex=04 03 64 07 B8 05 32 8B 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2385 Y=755 hex=04 13 51 09 F3 02 32 8B 00 80 18 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1964 Y=1460 hex=04 03 AC 07 B4 05 78 8B 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2435 Y=761 hex=04 13 83 09 F9 02 78 8B 00 80 18 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2029 Y=1459 hex=04 03 ED 07 B3 05 BE 8B 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2482 Y=766 hex=04 13 B2 09 FE 02 BE 8B 00 80 18 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2075 Y=1458 hex=04 03 1B 08 B2 05 04 8C 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2532 Y=774 hex=04 13 E4 09 06 03 04 8C 00 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2115 Y=1460 hex=04 03 43 08 B4 05 4A 8C 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2574 Y=780 hex=04 13 0E 0A 0C 03 4A 8C 00 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2172 Y=1460 hex=04 03 7C 08 B4 05 90 8C 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2617 Y=785 hex=04 13 39 0A 11 03 90 8C 00 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2224 Y=1463 hex=04 03 B0 08 B7 05 D6 8C 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2651 Y=792 hex=04 13 5B 0A 18 03 D6 8C 00 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2276 Y=1464 hex=04 03 E4 08 B8 05 1C 8D 02 80 17 32
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2684 Y=798 hex=04 13 7C 0A 1E 03 1C 8D 00 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2329 Y=1464 hex=04 03 19 09 B8 05 62 8D 02 80 17 32
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2723 Y=803 hex=04 13 A3 0A 23 03 62 8D 00 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2357 Y=1471 hex=04 03 35 09 BF 05 A8 8D 02 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2758 Y=806 hex=04 13 C6 0A 26 03 A8 8D 00 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2386 Y=1473 hex=04 03 52 09 C1 05 EE 8D 02 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2794 Y=810 hex=04 13 EA 0A 2A 03 EE 8D 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2419 Y=1474 hex=04 03 73 09 C2 05 34 8E 02 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2825 Y=811 hex=04 13 09 0B 2B 03 34 8E 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2452 Y=1473 hex=04 03 94 09 C1 05 7A 8E 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2853 Y=815 hex=04 13 25 0B 2F 03 7A 8E 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2484 Y=1473 hex=04 03 B4 09 C1 05 C0 8E 02 80 17 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2876 Y=817 hex=04 13 3C 0B 31 03 C0 8E 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2508 Y=1473 hex=04 03 CC 09 C1 05 06 8F 02 80 17 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2895 Y=817 hex=04 13 4F 0B 31 03 06 8F 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2527 Y=1474 hex=04 03 DF 09 C2 05 4C 8F 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2909 Y=821 hex=04 13 5D 0B 35 03 4C 8F 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2552 Y=1474 hex=04 03 F8 09 C2 05 92 8F 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2929 Y=821 hex=04 13 71 0B 35 03 92 8F 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2571 Y=1475 hex=04 03 0B 0A C3 05 D8 8F 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2946 Y=819 hex=04 13 82 0B 33 03 D8 8F 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2585 Y=1477 hex=04 03 19 0A C5 05 1E 90 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2954 Y=819 hex=04 13 8A 0B 33 03 1E 90 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2603 Y=1480 hex=04 03 2B 0A C8 05 64 90 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2962 Y=821 hex=04 13 92 0B 35 03 64 90 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2616 Y=1480 hex=04 03 38 0A C8 05 AA 90 02 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2968 Y=822 hex=04 13 98 0B 36 03 AA 90 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2625 Y=1479 hex=04 03 41 0A C7 05 F0 90 02 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2972 Y=822 hex=04 13 9C 0B 36 03 F0 90 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2631 Y=1482 hex=04 03 47 0A CA 05 36 91 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2973 Y=822 hex=04 13 9D 0B 36 03 36 91 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2635 Y=1483 hex=04 03 4B 0A CB 05 7C 91 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 7C 91 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2637 Y=1483 hex=04 03 4D 0A CB 05 C2 91 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2974 Y=822 hex=04 13 9E 0B 36 03 C2 91 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 08 92 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 08 92 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 4E 92 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 4E 92 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 94 92 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 94 92 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 DA 92 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 DA 92 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 20 93 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 20 93 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 66 93 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 66 93 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 AC 93 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 AC 93 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 F2 93 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 F2 93 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 38 94 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 38 94 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 7E 94 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 7E 94 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 C4 94 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 C4 94 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 0A 95 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 0A 95 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 50 95 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 50 95 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 96 95 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 96 95 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 DC 95 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 DC 95 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 22 96 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 22 96 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2638 Y=1483 hex=04 03 4E 0A CB 05 68 96 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2975 Y=822 hex=04 13 9F 0B 36 03 68 96 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2637 Y=1482 hex=04 03 4D 0A CA 05 AE 96 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2974 Y=820 hex=04 13 9E 0B 34 03 AE 96 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2636 Y=1481 hex=04 03 4C 0A C9 05 F4 96 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2973 Y=819 hex=04 13 9D 0B 33 03 F4 96 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2636 Y=1482 hex=04 03 4C 0A CA 05 3A 97 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2973 Y=820 hex=04 13 9D 0B 34 03 3A 97 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2636 Y=1481 hex=04 03 4C 0A C9 05 80 97 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2972 Y=818 hex=04 13 9C 0B 32 03 80 97 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2634 Y=1480 hex=04 03 4A 0A C8 05 C6 97 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2971 Y=818 hex=04 13 9B 0B 32 03 C6 97 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2631 Y=1479 hex=04 03 47 0A C7 05 0C 98 02 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2968 Y=817 hex=04 13 98 0B 31 03 0C 98 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2629 Y=1478 hex=04 03 45 0A C6 05 52 98 02 80 16 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2966 Y=817 hex=04 13 96 0B 31 03 52 98 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2621 Y=1476 hex=04 03 3D 0A C4 05 98 98 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2960 Y=814 hex=04 13 90 0B 2E 03 98 98 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2599 Y=1473 hex=04 03 27 0A C1 05 DE 98 02 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2948 Y=812 hex=04 13 84 0B 2C 03 DE 98 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2566 Y=1470 hex=04 03 06 0A BE 05 24 99 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2932 Y=809 hex=04 13 74 0B 29 03 24 99 00 80 16 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2504 Y=1465 hex=04 03 C8 09 B9 05 6A 99 02 80 18 42
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2895 Y=804 hex=04 13 4F 0B 24 03 6A 99 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2437 Y=1460 hex=04 03 85 09 B4 05 B0 99 02 80 18 42
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2843 Y=797 hex=04 13 1B 0B 1D 03 B0 99 00 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2402 Y=1456 hex=04 03 62 09 B0 05 F6 99 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2782 Y=789 hex=04 13 DE 0A 15 03 F6 99 00 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2355 Y=1449 hex=04 03 33 09 A9 05 3C 9A 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2721 Y=779 hex=04 13 A1 0A 0B 03 3C 9A 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2302 Y=1442 hex=04 03 FE 08 A2 05 82 9A 02 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2675 Y=766 hex=04 13 73 0A FE 02 82 9A 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2259 Y=1438 hex=04 03 D3 08 9E 05 C8 9A 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2652 Y=754 hex=04 13 5C 0A F2 02 C8 9A 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2212 Y=1436 hex=04 03 A4 08 9C 05 0E 9B 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2619 Y=745 hex=04 13 3B 0A E9 02 0E 9B 00 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2166 Y=1433 hex=04 03 76 08 99 05 54 9B 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2582 Y=737 hex=04 13 16 0A E1 02 54 9B 00 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2121 Y=1426 hex=04 03 49 08 92 05 9A 9B 02 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2550 Y=727 hex=04 13 F6 09 D7 02 9A 9B 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2066 Y=1433 hex=04 03 12 08 99 05 E0 9B 02 80 1A 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2501 Y=713 hex=04 13 C5 09 C9 02 E0 9B 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=2015 Y=1440 hex=04 03 DF 07 A0 05 26 9C 02 80 1A 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2461 Y=701 hex=04 13 9D 09 BD 02 26 9C 00 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1957 Y=1443 hex=04 03 A5 07 A3 05 6C 9C 02 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2430 Y=689 hex=04 13 7E 09 B1 02 6C 9C 00 80 1A 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1903 Y=1450 hex=04 03 6F 07 AA 05 B2 9C 02 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2396 Y=679 hex=04 13 5C 09 A7 02 B2 9C 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1854 Y=1459 hex=04 03 3E 07 B3 05 F8 9C 02 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2362 Y=669 hex=04 13 3A 09 9D 02 F8 9C 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1814 Y=1466 hex=04 03 16 07 BA 05 3E 9D 02 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2327 Y=663 hex=04 13 17 09 97 02 3E 9D 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1778 Y=1472 hex=04 03 F2 06 C0 05 84 9D 02 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2295 Y=659 hex=04 13 F7 08 93 02 84 9D 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1736 Y=1481 hex=04 03 C8 06 C9 05 CA 9D 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2259 Y=653 hex=04 13 D3 08 8D 02 CA 9D 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1705 Y=1489 hex=04 03 A9 06 D1 05 10 9E 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2229 Y=651 hex=04 13 B5 08 8B 02 10 9E 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1676 Y=1495 hex=04 03 8C 06 D7 05 56 9E 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2200 Y=650 hex=04 13 98 08 8A 02 56 9E 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1649 Y=1498 hex=04 03 71 06 DA 05 9C 9E 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2172 Y=647 hex=04 13 7C 08 87 02 9C 9E 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1630 Y=1498 hex=04 03 5E 06 DA 05 E2 9E 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2156 Y=643 hex=04 13 6C 08 83 02 E2 9E 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1611 Y=1498 hex=04 03 4B 06 DA 05 28 9F 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2140 Y=640 hex=04 13 5C 08 80 02 28 9F 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1590 Y=1493 hex=04 03 36 06 D5 05 6E 9F 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2123 Y=635 hex=04 13 4B 08 7B 02 6E 9F 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1574 Y=1485 hex=04 03 26 06 CD 05 B4 9F 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2110 Y=628 hex=04 13 3E 08 74 02 B4 9F 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1566 Y=1485 hex=04 03 1E 06 CD 05 FA 9F 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2103 Y=625 hex=04 13 37 08 71 02 FA 9F 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1556 Y=1481 hex=04 03 14 06 C9 05 40 A0 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2096 Y=621 hex=04 13 30 08 6D 02 40 A0 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1548 Y=1476 hex=04 03 0C 06 C4 05 86 A0 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2090 Y=618 hex=04 13 2A 08 6A 02 86 A0 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1543 Y=1474 hex=04 03 07 06 C2 05 CC A0 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2083 Y=615 hex=04 13 23 08 67 02 CC A0 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1536 Y=1473 hex=04 03 00 06 C1 05 12 A1 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2077 Y=614 hex=04 13 1D 08 66 02 12 A1 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1532 Y=1472 hex=04 03 FC 05 C0 05 58 A1 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2074 Y=612 hex=04 13 1A 08 64 02 58 A1 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1529 Y=1472 hex=04 03 F9 05 C0 05 9E A1 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2073 Y=611 hex=04 13 19 08 63 02 9E A1 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1528 Y=1471 hex=04 03 F8 05 BF 05 E4 A1 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2071 Y=609 hex=04 13 17 08 61 02 E4 A1 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1529 Y=1471 hex=04 03 F9 05 BF 05 2A A2 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2072 Y=610 hex=04 13 18 08 62 02 2A A2 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1528 Y=1471 hex=04 03 F8 05 BF 05 70 A2 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2070 Y=608 hex=04 13 16 08 60 02 70 A2 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1526 Y=1471 hex=04 03 F6 05 BF 05 B6 A2 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2070 Y=608 hex=04 13 16 08 60 02 B6 A2 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1526 Y=1471 hex=04 03 F6 05 BF 05 FC A2 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2070 Y=607 hex=04 13 16 08 5F 02 FC A2 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1526 Y=1471 hex=04 03 F6 05 BF 05 42 A3 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2070 Y=607 hex=04 13 16 08 5F 02 42 A3 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1526 Y=1471 hex=04 03 F6 05 BF 05 88 A3 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2070 Y=607 hex=04 13 16 08 5F 02 88 A3 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1526 Y=1471 hex=04 03 F6 05 BF 05 CE A3 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2072 Y=607 hex=04 13 18 08 5F 02 CE A3 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1527 Y=1471 hex=04 03 F7 05 BF 05 14 A4 02 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2071 Y=607 hex=04 13 17 08 5F 02 14 A4 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1528 Y=1471 hex=04 03 F8 05 BF 05 5A A4 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2074 Y=607 hex=04 13 1A 08 5F 02 5A A4 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1530 Y=1470 hex=04 03 FA 05 BE 05 A0 A4 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2076 Y=607 hex=04 13 1C 08 5F 02 A0 A4 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1531 Y=1470 hex=04 03 FB 05 BE 05 E6 A4 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2078 Y=607 hex=04 13 1E 08 5F 02 E6 A4 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1536 Y=1469 hex=04 03 00 06 BD 05 2C A5 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2083 Y=607 hex=04 13 23 08 5F 02 2C A5 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1542 Y=1468 hex=04 03 06 06 BC 05 72 A5 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2089 Y=608 hex=04 13 29 08 60 02 72 A5 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1556 Y=1465 hex=04 03 14 06 B9 05 B8 A5 02 80 1C 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2099 Y=608 hex=04 13 33 08 60 02 B8 A5 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1576 Y=1459 hex=04 03 28 06 B3 05 FE A5 02 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2116 Y=608 hex=04 13 44 08 60 02 FE A5 00 80 1A 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1613 Y=1451 hex=04 03 4D 06 AB 05 44 A6 02 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2151 Y=612 hex=04 13 67 08 64 02 44 A6 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1662 Y=1440 hex=04 03 7E 06 A0 05 8A A6 02 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2198 Y=615 hex=04 13 96 08 67 02 8A A6 00 80 1A 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1717 Y=1432 hex=04 03 B5 06 98 05 D0 A6 02 80 18 42
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2249 Y=619 hex=04 13 C9 08 6B 02 D0 A6 00 80 17 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1756 Y=1427 hex=04 03 DC 06 93 05 16 A7 02 80 18 11
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2295 Y=622 hex=04 13 F7 08 6E 02 16 A7 00 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=1 BTN=- X=1783 Y=1426 hex=04 03 F7 06 92 05 5C A7 02 80 18 11
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=1 BTN=- X=2328 Y=625 hex=04 13 18 09 71 02 5C A7 00 80 17 11
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=2 CID=0 TIP=- BTN=- X=1783 Y=1426 hex=04 01 F7 06 92 05 DE A7 02 80 18 11
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=0 CID=1 TIP=- BTN=- X=2328 Y=625 hex=04 11 18 09 71 02 DE A7 00 80 17 11
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2342 Y=1058 hex=04 03 26 09 22 04 34 BB 01 80 15 33
+(未知设备)                         （上一秒省略 12 条）
+[MOUSE]      (未知设备)                         dx=393216 dy=-1376256
+[MOUSE]      (未知设备)                         dx=851968 dy=-1507328
+[MOUSE]      (未知设备)                         dx=983040 dy=-1376256
+[MOUSE]      (未知设备)                         dx=786432 dy=-917504
+[MOUSE]      (未知设备)                         dx=720896 dy=-786432
+[MOUSE]      (未知设备)                         dx=720896 dy=-917504
+[MOUSE]      (未知设备)                         dx=655360 dy=-589824
+[MOUSE]      (未知设备)                         dx=786432 dy=-786432
+[MOUSE]      (未知设备)                         dx=524288 dy=-524288
+[MOUSE]      (未知设备)                         dx=458752 dy=-393216
+[MOUSE]      (未知设备)                         dx=327680 dy=-262144
+[MOUSE]      (未知设备)                         dx=393216 dy=-262144
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=2168 Y=1047 hex=04 01 78 08 17 04 6E D1 01 88 13 11
+ETD2303&Col03                  （上一秒省略 80 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 A4 B3 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 26 B4 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 58 B4 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 9E B4 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 E4 B4 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 2A B5 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 70 B5 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 B6 B5 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 FC B5 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 42 B6 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=931 hex=04 03 94 09 A3 03 88 B6 01 80 0D 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2452 Y=932 hex=04 03 94 09 A4 03 CE B6 01 80 0D 33
+ETD2303&Col03                  （上一秒省略 134 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 B8 DB 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 FE DB 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 44 DC 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 8A DC 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 D0 DC 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 16 DD 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 5C DD 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 A2 DD 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 E8 DD 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 2E DE 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 74 DE 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2435 Y=951 hex=04 03 83 09 B7 03 BA DE 01 80 11 33
+(未知设备)                         （上一秒省略 57 条）
+[MOUSE]      (未知设备)                         dx=65536 dy=    0
+[MOUSE]      (未知设备)                         dx=    0 dy=-65536
+[MOUSE]      (未知设备)                         dx=65536 dy=    0
+[MOUSE]      (未知设备)                         dx=65536 dy=    0
+[MOUSE]      (未知设备)                         dx=131072 dy=    0
+[MOUSE]      (未知设备)                         dx=65536 dy=    0
+[MOUSE]      (未知设备)                         dx=196608 dy=    0
+[MOUSE]      (未知设备)                         dx=65536 dy=    0
+[MOUSE]      (未知设备)                         dx=131072 dy=    0
+[MOUSE]      (未知设备)                         dx=65536 dy=    0
+[MOUSE]      (未知设备)                         dx=131072 dy=65536
+[MOUSE]      (未知设备)                         dx=131072 dy=    0
+ETD2303&Col03                  （上一秒省略 133 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2602 Y=1201 hex=04 03 2A 0A B1 04 5E 03 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2602 Y=1205 hex=04 03 2A 0A B5 04 A4 03 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2602 Y=1213 hex=04 03 2A 0A BD 04 EA 03 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2602 Y=1219 hex=04 03 2A 0A C3 04 30 04 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2602 Y=1226 hex=04 03 2A 0A CA 04 76 04 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2603 Y=1233 hex=04 03 2B 0A D1 04 BC 04 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2603 Y=1239 hex=04 03 2B 0A D7 04 02 05 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2603 Y=1245 hex=04 03 2B 0A DD 04 48 05 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2603 Y=1253 hex=04 03 2B 0A E5 04 8E 05 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2603 Y=1258 hex=04 03 2B 0A EA 04 D4 05 01 80 17 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2604 Y=1265 hex=04 03 2C 0A F1 04 1A 06 01 80 17 43
+(未知设备)                         （上一秒省略 95 条）
+[MOUSE]      (未知设备)                         dx=    0 dy=196608
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2604 Y=1270 hex=04 03 2C 0A F6 04 60 06 01 80 17 43
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=196608
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=65536 dy=196608
+[MOUSE]      (未知设备)                         dx=    0 dy=196608
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=262144
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+[MOUSE]      (未知设备)                         dx=    0 dy=131072
+ETD2303&Col03                  （上一秒省略 133 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2096 Y=2034 hex=04 03 30 08 F2 07 04 2B 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2096 Y=2029 hex=04 03 30 08 ED 07 4A 2B 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2094 Y=2024 hex=04 03 2E 08 E8 07 90 2B 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2095 Y=2015 hex=04 03 2F 08 DF 07 D6 2B 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2093 Y=2000 hex=04 03 2D 08 D0 07 1C 2C 01 80 16 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2089 Y=1970 hex=04 03 29 08 B2 07 62 2C 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2083 Y=1911 hex=04 03 23 08 77 07 A8 2C 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2075 Y=1834 hex=04 03 1B 08 2A 07 EE 2C 01 80 16 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2069 Y=1766 hex=04 03 15 08 E6 06 34 2D 01 80 16 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2071 Y=1725 hex=04 03 17 08 BD 06 7A 2D 01 80 16 33
+(未知设备)                         （上一秒省略 100 条）
+[MOUSE]      (未知设备)                         dx=65536 dy=-1114112
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2071 Y=1679 hex=04 03 17 08 8F 06 C0 2D 01 80 16 44
+[MOUSE]      (未知设备)                         dx=    0 dy=-1310720
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=2074 Y=1610 hex=04 03 1A 08 4A 06 06 2E 01 80 16 34
+[MOUSE]      (未知设备)                         dx=65536 dy=-1900544
+[MOUSE]      (未知设备)                         dx=65536 dy=-1376256
+[MOUSE]      (未知设备)                         dx=65536 dy=-1572864
+[MOUSE]      (未知设备)                         dx=65536 dy=-1179648
+[MOUSE]      (未知设备)                         dx=    0 dy=-1048576
+[MOUSE]      (未知设备)                         dx=    0 dy=-1179648
+[MOUSE]      (未知设备)                         dx=-65536 dy=-720897
+[MOUSE]      (未知设备)                         dx=65536 dy=-851968
+[MOUSE]      (未知设备)                         dx=    0 dy=-786432
+[MOUSE]      (未知设备)                         dx=65536 dy=-1114112
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=2042 Y=968 hex=04 01 FA 07 C8 03 C2 3A 01 88 14 11
+VID_046D&PID_C09D&MI_00        （上一秒省略 177 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 424 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+VID_046D&PID_C09D&MI_00        （上一秒省略 536 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 185 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+VID_046D&PID_C09D&MI_00        （上一秒省略 96 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 515 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+ETD2303&Col03                  （上一秒省略 45 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3561 Y=1125 hex=04 03 E9 0D 65 04 F2 D1 01 88 2A 45
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3561 Y=1125 hex=04 03 E9 0D 65 04 74 D2 01 88 2A 45
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3555 Y=1121 hex=04 03 E3 0D 61 04 BA D2 01 88 2D 55
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3555 Y=1121 hex=04 03 E3 0D 61 04 00 D3 01 88 2D 55
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3545 Y=1115 hex=04 02 D9 0D 5B 04 46 D3 01 88 32 56
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3531 Y=1106 hex=04 02 CB 0D 52 04 8C D3 01 88 38 56
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3522 Y=1101 hex=04 02 C2 0D 4D 04 D2 D3 01 88 3D 56
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3520 Y=1099 hex=04 02 C0 0D 4B 04 18 D4 01 88 3D 56
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3512 Y=1092 hex=04 02 B8 0D 44 04 5E D4 01 88 3E 56
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3508 Y=1087 hex=04 02 B4 0D 3F 04 A4 D4 01 88 3B 56
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3504 Y=1084 hex=04 02 B0 0D 3C 04 EA D4 01 88 34 46
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=3503 Y=1079 hex=04 02 AF 0D 37 04 30 D5 01 88 34 46
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=3499 Y=1075 hex=04 00 AB 0D 33 04 2A D6 01 88 2B 11
+VID_046D&PID_C09D&MI_00        （上一秒省略 184 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-196609
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-131073
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=-131073
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-131073
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=-196609
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=-196609
+VID_046D&PID_C09D&MI_00        （上一秒省略 320 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+ETD2303&Col03                  （上一秒省略 2 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 0C 07 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 8E 07 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 D4 07 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 1A 08 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 60 08 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 A6 08 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 EC 08 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 32 09 01 80 20 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 78 09 01 80 21 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 BE 09 01 80 22 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 04 0A 01 80 22 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=1347 Y=736 hex=04 03 43 05 E0 02 4A 0A 01 80 22 44
+(未知设备)                         （上一秒省略 23 条）
+[MOUSE]      (未知设备)                         dx=-131072 dy=65535
+[MOUSE]      (未知设备)                         dx=-262144 dy=   -1
+[MOUSE]      (未知设备)                         dx=-196608 dy=   -1
+[MOUSE]      (未知设备)                         dx=-262144 dy=65535
+[MOUSE]      (未知设备)                         dx=-196608 dy=   -1
+[MOUSE]      (未知设备)                         dx=-262144 dy=   -1
+[MOUSE]      (未知设备)                         dx=-196608 dy=   -1
+[MOUSE]      (未知设备)                         dx=-262144 dy=   -1
+[MOUSE]      (未知设备)                         dx=-262144 dy=-65537
+[MOUSE]      (未知设备)                         dx=-196608 dy=65535
+[MOUSE]      (未知设备)                         dx=-262144 dy=-65537
+[MOUSE]      (未知设备)                         dx=-196608 dy=-65537
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=1189 Y=683 hex=04 01 A5 04 AB 02 4A 14 01 88 15 11
+VID_046D&PID_C09D&MI_00        （上一秒省略 51 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-65537
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+VID_046D&PID_C09D&MI_00        （上一秒省略 689 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=262144 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=196608
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=196608 dy=65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 475 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 360 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 192 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-196608
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-131073
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-196608
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=-131073
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-196608
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-131073
+VID_046D&PID_C09D&MI_00        （上一秒省略 603 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=196608
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=131072
+VID_046D&PID_C09D&MI_00        （上一秒省略 114 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-196608
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-131073
+VID_046D&PID_C09D&MI_00        （上一秒省略 103 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-720897
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-327680 dy=-720897
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-917505
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-720897
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-786433
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-327680 dy=-851969
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-720897
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-917505
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-786433
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-917505
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-720897
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-327680 dy=-851969
+VID_046D&PID_C09D&MI_00        （上一秒省略 770 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 162 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 160 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+VID_046D&PID_C09D&MI_00        （上一秒省略 188 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 131 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 29 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 679 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 295 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+ETD2303&Col03                  （上一秒省略 35 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=521 Y=2191 hex=04 03 09 02 8F 08 12 13 01 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=521 Y=2191 hex=04 03 09 02 8F 08 94 13 01 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=521 Y=2191 hex=04 03 09 02 8F 08 DA 13 01 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=521 Y=2191 hex=04 03 09 02 8F 08 20 14 01 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=521 Y=2191 hex=04 03 09 02 8F 08 66 14 01 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=520 Y=2191 hex=04 03 08 02 8F 08 AC 14 01 80 18 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=517 Y=2189 hex=04 03 05 02 8D 08 F2 14 01 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=516 Y=2190 hex=04 03 04 02 8E 08 38 15 01 80 18 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=515 Y=2189 hex=04 03 03 02 8D 08 7E 15 01 80 1A 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=513 Y=2188 hex=04 03 01 02 8C 08 C4 15 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=512 Y=2187 hex=04 03 00 02 8B 08 0A 16 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=509 Y=2187 hex=04 03 FD 01 8B 08 50 16 01 80 1B 44
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=505 Y=2187 hex=04 03 F9 01 8B 08 68 17 01 81 1D 44
+(未知设备)                         （上一秒省略 12 条）
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=504 Y=2188 hex=04 03 F8 01 8C 08 3E 1E 01 80 1F 44
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=544 Y=2195 hex=04 03 20 02 93 08 7A 32 01 81 1C 44
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=555 Y=2209 hex=04 03 2B 02 A1 08 AE 3A 01 80 1E 43
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+ETD2303&Col03                  （上一秒省略 129 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2207 hex=04 03 29 02 9F 08 F4 3A 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2207 hex=04 03 29 02 9F 08 3A 3B 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2207 hex=04 03 28 02 9F 08 80 3B 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2206 hex=04 03 28 02 9E 08 C6 3B 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2204 hex=04 03 28 02 9C 08 0C 3C 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2204 hex=04 03 28 02 9C 08 52 3C 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2203 hex=04 03 28 02 9B 08 98 3C 01 80 1E 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2203 hex=04 03 28 02 9B 08 DE 3C 01 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2202 hex=04 03 28 02 9A 08 24 3D 01 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2203 hex=04 03 28 02 9B 08 6A 3D 01 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2202 hex=04 03 28 02 9A 08 B0 3D 01 80 1D 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=552 Y=2201 hex=04 03 28 02 99 08 F6 3D 01 80 1C 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=552 Y=2199 hex=04 03 28 02 97 08 94 59 01 81 1C 44
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=556 Y=2202 hex=04 03 2C 02 9A 08 6A 60 01 80 1E 43
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+ETD2303&Col03                  （上一秒省略 135 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 B2 63 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 F8 63 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 3E 64 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 84 64 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 CA 64 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 10 65 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 56 65 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 9C 65 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2196 hex=04 03 29 02 94 08 E2 65 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2195 hex=04 03 29 02 93 08 28 66 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2195 hex=04 03 29 02 93 08 6E 66 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 B4 66 01 80 1B 43
+ETD2303&Col03                  （上一秒省略 133 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 58 8B 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 9E 8B 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 E4 8B 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 2A 8C 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 70 8C 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 B6 8C 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 FC 8C 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 42 8D 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 88 8D 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 CE 8D 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 14 8E 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 5A 8E 01 80 1B 43
+ETD2303&Col03                  （上一秒省略 133 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 FE B2 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 44 B3 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 8A B3 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 D0 B3 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 16 B4 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 5C B4 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 A2 B4 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 E8 B4 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 2E B5 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 74 B5 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 BA B5 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=553 Y=2194 hex=04 03 29 02 92 08 00 B6 01 80 1B 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=553 Y=2194 hex=04 03 29 02 92 08 B2 CC 01 81 1B 44
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=546 Y=2189 hex=04 03 22 02 8D 08 A0 D4 01 80 1A 43
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+ETD2303&Col03                  （上一秒省略 131 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 A4 DA 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 EA DA 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 30 DB 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 76 DB 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 BC DB 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 02 DC 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 48 DC 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 8E DC 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 D4 DC 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 1A DD 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 60 DD 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=528 Y=2177 hex=04 03 10 02 81 08 A6 DD 01 80 1A 43
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=529 Y=2174 hex=04 01 11 02 7E 08 E4 FE 01 88 13 11
+ETD2303&Col03                  （上一秒省略 120 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=455 Y=2315 hex=04 03 C7 01 0B 09 BC 17 01 80 11 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=455 Y=2315 hex=04 03 C7 01 0B 09 02 18 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=455 Y=2315 hex=04 03 C7 01 0B 09 48 18 01 80 11 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=455 Y=2315 hex=04 03 C7 01 0B 09 8E 18 01 80 13 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=455 Y=2310 hex=04 03 C7 01 06 09 D4 18 01 80 13 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=454 Y=2305 hex=04 03 C6 01 01 09 1A 19 01 80 13 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=454 Y=2302 hex=04 03 C6 01 FE 08 60 19 01 81 13 34
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=452 Y=2299 hex=04 03 C4 01 FB 08 A6 19 01 81 13 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=452 Y=2295 hex=04 03 C4 01 F7 08 EC 19 01 81 13 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=452 Y=2294 hex=04 03 C4 01 F6 08 32 1A 01 81 13 33
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=452 Y=2291 hex=04 03 C4 01 F3 08 78 1A 01 81 13 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=452 Y=2291 hex=04 03 C4 01 F3 08 BE 1A 01 81 13 34
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=455 Y=2286 hex=04 03 C7 01 EE 08 C0 1D 01 80 11 33
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=479 Y=2283 hex=04 01 DF 01 EB 08 28 1F 01 80 0C 11
+ETD2303&Col03                  （上一秒省略 14 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=719 Y=2409 hex=04 03 CF 02 69 09 9A 52 01 80 14 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 E0 52 01 81 13 22
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 26 53 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 6C 53 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 B2 53 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 F8 53 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 3E 54 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 84 54 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 CA 54 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 10 55 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 56 55 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=719 Y=2409 hex=04 03 CF 02 69 09 9C 55 01 81 13 22
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=719 Y=2409 hex=04 03 CF 02 69 09 28 56 01 80 13 22
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=719 Y=2411 hex=04 01 CF 02 6B 09 36 57 01 80 11 11
+ETD2303&Col03                  （上一秒省略 3 条）
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=667 Y=2499 hex=04 03 9B 02 C3 09 0E 9D 01 80 08 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=667 Y=2499 hex=04 03 9B 02 C3 09 5E 9D 01 80 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=667 Y=2499 hex=04 03 9B 02 C3 09 A4 9D 01 81 07 13
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=666 Y=2499 hex=04 03 9A 02 C3 09 EA 9D 01 81 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=666 Y=2499 hex=04 03 9A 02 C3 09 30 9E 01 81 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=665 Y=2499 hex=04 03 99 02 C3 09 76 9E 01 81 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=664 Y=2499 hex=04 03 98 02 C3 09 BC 9E 01 81 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=664 Y=2499 hex=04 03 98 02 C3 09 02 9F 01 81 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=663 Y=2499 hex=04 03 97 02 C3 09 48 9F 01 81 07 13
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=663 Y=2499 hex=04 03 97 02 C3 09 8E 9F 01 81 07 12
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=1 X=664 Y=2499 hex=04 03 98 02 C3 09 D4 9F 01 81 07 12
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=1 BTN=- X=666 Y=2499 hex=04 03 9A 02 C3 09 1A A0 01 80 07 11
+[MOUSE]      (未知设备)                         dx=    0 dy=    0
+[HID 触控板]    ETD2303&Col03                  rid=4 len=12 CC=1 CID=0 TIP=- BTN=- X=666 Y=2499 hex=04 01 9A 02 C3 09 6A A0 01 80 07 11
+VID_046D&PID_C09D&MI_00        （上一秒省略 388 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=   -1
+VID_046D&PID_C09D&MI_00        （上一秒省略 442 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 180 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 511 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 7 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 3 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=131072 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 472 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 88 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=196608
+VID_046D&PID_C09D&MI_00        （上一秒省略 442 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+VID_046D&PID_C09D&MI_00        （上一秒省略 218 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+VID_046D&PID_C09D&MI_00        （上一秒省略 225 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=   -1
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-65537
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=-65537
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=-196609
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=-196609
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-262145
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=-262145
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=-327681
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-196608 dy=-327681
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-262144 dy=-393217
+VID_046D&PID_C09D&MI_00        （上一秒省略 407 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 11 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-131072 dy=65535
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=-65536 dy=131071
+VID_046D&PID_C09D&MI_00        （上一秒省略 74 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+VID_046D&PID_C09D&MI_00        （上一秒省略 79 条）
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=65536 dy=    0
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-131072
+[MOUSE]      VID_046D&PID_C09D&MI_00        dx=    0 dy=-65536

@@ -1,0 +1,36 @@
+# ---------- .NET / WPF ----------
+bin/
+obj/
+publish/
+*.user
+*.suo
+.vs/
+
+# ---------- Android / Gradle ----------
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+.kotlin/
+captures/
+
+# Android 构建产物与签名文件
+*.apk
+*.aab
+*.ap_
+*.dex
+*.jks
+*.keystore
+
+# ---------- 操作系统 ----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# ---------- 编辑器 ----------
+*.swp
+*.swo
+*~

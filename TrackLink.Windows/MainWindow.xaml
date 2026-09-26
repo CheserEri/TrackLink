@@ -1,0 +1,41 @@
+<Window x:Class="TrackLink.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="clr-namespace:TrackLink.Windows.UI"
+        Title="TrackLink · 触控板遥控"
+        Height="672" Width="920"
+        MinHeight="520" MinWidth="760"
+        WindowStartupLocation="CenterScreen"
+        Closing="OnWindowClosing"
+        StateChanged="OnWindowStateChanged"
+        Loaded="OnWindowLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="196"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Background="#FF2B2B2E">
+            <TextBlock Text="TrackLink" Foreground="White" FontSize="20" FontWeight="Bold" Margin="18,22,18,2"/>
+            <TextBlock Text="触控板遥控 · Windows 端" Foreground="#FFB0B0B0" FontSize="11" Margin="18,0,18,20"/>
+
+            <Button x:Name="NavDeviceButton" Content="① 触控板设备" Height="36" Margin="10,2"
+                    Click="OnNavigateDevice"/>
+            <Button x:Name="NavConnectionButton" Content="② 连接与控制" Height="36" Margin="10,2"
+                    Click="OnNavigateConnection"/>
+            <Button x:Name="NavSettingsButton" Content="③ 手势设置" Height="36" Margin="10,2"
+                    Click="OnNavigateSettings"/>
+
+            <TextBlock x:Name="SideStatusText" Foreground="#FFB0B0B0" FontSize="11"
+                       TextWrapping="Wrap" Margin="18,20,18,0" Text="正在启动…"/>
+            <TextBlock x:Name="SideHotkeyText" Foreground="#FFB0B0B0" FontSize="11"
+                       TextWrapping="Wrap" Margin="18,8,18,0" Text=""/>
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <ui:DevicePickerView x:Name="DevicePicker"/>
+            <ui:ConnectionView x:Name="Connection"/>
+            <ui:SettingsView x:Name="GestureSettings"/>
+        </Grid>
+    </Grid>
+</Window>

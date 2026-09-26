@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TrackLink</string>
+
+    <string name="accessibility_service_label">TrackLink 触控板遥控</string>
+    <string name="accessibility_service_summary">接收笔记本触控板的点击、滚动与返回操作</string>
+    <string name="accessibility_service_description">TrackLink 通过蓝牙接收笔记本内置触控板的输入，并在本机执行点击、滑动与返回等操作。本服务不读取屏幕内容，也不采集或上传任何输入内容。</string>
+</resources>
