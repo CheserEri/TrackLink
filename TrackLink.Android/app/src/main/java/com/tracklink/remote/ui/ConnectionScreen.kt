@@ -395,11 +395,28 @@ private fun SelfTestButton(text: String, enabled: Boolean, onClick: () -> Unit) 
 private fun LogSection(state: LinkUiState) {
     Text("日志", style = MaterialTheme.typography.titleMedium)
     GenshinCard {
-        Text(
-            if (state.log.isEmpty()) "（暂无）" else state.log.joinToString("\n"),
-            style = MaterialTheme.typography.bodySmall,
-            fontFamily = FontFamily.Monospace,
-        )
+        if (state.log.isEmpty()) {
+            Text(
+                "（暂无）",
+                style = MaterialTheme.typography.bodySmall,
+                fontFamily = FontFamily.Monospace,
+            )
+        } else {
+            // 日志会随使用一直累积，必须给固定高度 + 内部滚动：
+            // 直接把整份日志铺进卡片的话，卡片会越长越高，把整个页面顶得极长。
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                Text(
+                    state.log.joinToString("\n"),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace,
+                )
+            }
+        }
     }
 }
 

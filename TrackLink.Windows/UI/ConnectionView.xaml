@@ -106,8 +106,24 @@
                    Foreground="{StaticResource TextSubBrush}" FontSize="11" Margin="0,12,0,0"
                    Text="（未选定触控板）"/>
 
-        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,14,0,0">
-            <StackPanel Orientation="Horizontal">
+        <!--
+          这里必须是 Grid 而不是 StackPanel。垂直 StackPanel 不做任何压缩：
+          子项总高一旦超过所在行分配到的空间，超出部分就从底部直接裁掉——
+          窗口一矮，日志列表下面那行「自动滚动到最新 / 清空日志」就被切掉一半，
+          正是底边栏挡字的现象。
+          改成 Grid 后由日志列表吃掉剩余空间（* 行）：窗口变矮先压缩列表，
+          按钮、复选框这些操作项永远完整可见。
+        -->
+        <Grid Grid.Row="3" Margin="0,14,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Button x:Name="StartButton" Content="启动服务" MinWidth="96" Click="OnStartService"/>
                 <Button x:Name="StopButton" Content="停止服务" Style="{StaticResource GhostButton}"
                         MinWidth="96" Margin="8,0,0,0" Click="OnStopService"/>
@@ -119,11 +135,12 @@
                           Checked="OnBlockChanged" Unchecked="OnBlockChanged"/>
             </StackPanel>
 
-            <TextBlock Text="勾选「屏蔽本机鼠标」后，触控板不再带动本机光标、也不在本机点击（外接鼠标不受影响）。"
+            <TextBlock Grid.Row="1"
+                       Text="勾选「屏蔽本机鼠标」后，触控板不再带动本机光标、也不在本机点击（外接鼠标不受影响）。"
                        Foreground="{StaticResource TextWeakBrush}" FontSize="11" TextWrapping="Wrap"
                        Margin="0,8,0,0"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,16,0,6">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,16,0,6">
                 <Rectangle Width="7" Height="7" Fill="{StaticResource GoldDeepBrush}" VerticalAlignment="Center"
                            RenderTransformOrigin="0.5,0.5">
                     <Rectangle.RenderTransform>
@@ -132,15 +149,15 @@
                 </Rectangle>
                 <TextBlock Text="运行日志" FontWeight="Bold" Margin="8,0,0,0"/>
             </StackPanel>
-            <ListBox x:Name="LogList" Height="212" FontFamily="Consolas" FontSize="11"
+            <ListBox Grid.Row="3" x:Name="LogList" FontFamily="Consolas" FontSize="11"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,8,0,0">
                 <CheckBox x:Name="AutoScrollCheck" Content="自动滚动到最新" IsChecked="True"
                           VerticalAlignment="Center" Margin="0,0,16,0"/>
                 <Button Content="清空日志" Style="{StaticResource GhostButton}" MinWidth="88"
                         Click="OnClearLog"/>
             </StackPanel>
-        </StackPanel>
+        </Grid>
 
         <Border Grid.Row="4" Margin="0,14,0,0" Padding="0,10,0,0" BorderThickness="0,1,0,0"
                 BorderBrush="#40D3BC8E">

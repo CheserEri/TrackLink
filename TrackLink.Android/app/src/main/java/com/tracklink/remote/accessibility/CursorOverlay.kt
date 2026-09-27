@@ -143,6 +143,9 @@ object CursorOverlay {
             WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                 or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                // 必须带上 IN_SCREEN：否则窗口坐标的原点是「状态栏下方」而不是物理屏幕顶部，
+                // 而 dispatchGesture 用的是含状态栏的全屏坐标，圆球会比真实点击点低一个状态栏高度。
+                or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                 or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT,
         ).apply {

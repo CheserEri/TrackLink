@@ -11,8 +11,10 @@ android {
         applicationId = "com.tracklink.remote"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.2.0"
+        // 每次发版都要跟着 release tag 递增：安装后系统显示的版本号就是这里，
+        // 之前两个版本忘了改，报问题时报出来的版本号都对不上。
+        versionCode = 3
+        versionName = "0.2.2"
     }
 
     buildTypes {
