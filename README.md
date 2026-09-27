@@ -86,8 +86,8 @@ TrackLink/
 │     └─ ui/                   # 连接界面（权限、设备列表、状态、RTT、日志）
 ├─ TrackLink.Windows.Spike/    # 第 1 周可行性探针（Raw Input 枚举与 HID 解码验证）
 ├─ installer/                  # Windows MSI 安装包定义（WiX Toolset，纯命令行构建）
+├─ docs/                       # 阶段规格文档
 ├─ docs-evidence/              # 真机验证截图
-├─ .trae/documents/            # 阶段规格文档
 └─ TrackLink-纯软件项目计划.md   # 项目计划书（含全部实测结论与踩坑记录）
 ```
 
@@ -255,8 +255,8 @@ adb install -r .\TrackLink.Android\app\build\outputs\apk\debug\app-debug.apk
 ## 文档
 
 - [TrackLink-纯软件项目计划.md](./TrackLink-纯软件项目计划.md) —— 项目计划书，含全部实测结论与踩坑记录
-- [.trae/documents/第3周-最小控制闭环.md](./.trae/documents/第3周-最小控制闭环.md) —— 第 3 周规格
-- [.trae/documents/Windows端独立软件化.md](./.trae/documents/Windows端独立软件化.md) —— Windows 端独立软件化规格
+- [docs/第3周-最小控制闭环.md](./docs/第3周-最小控制闭环.md) —— 第 3 周规格
+- [docs/Windows端独立软件化.md](./docs/Windows端独立软件化.md) —— Windows 端独立软件化规格
 
 ---
 

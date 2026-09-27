@@ -39,3 +39,6 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
+
+# Trae 的工作目录（阶段规格文档已整理进 docs/，这里不再入库）
+.trae/
