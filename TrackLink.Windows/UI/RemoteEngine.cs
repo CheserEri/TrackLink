@@ -149,7 +149,9 @@ internal sealed class RemoteEngine : IDisposable
             return false;
         }
 
-        ServiceText = $"本机地址 {Bt.FormatAddress(_host.LocalAddress)} · RFCOMM 通道 {_host.Channel} · "
+        // 开头必须点明「运行中」：以前这里只有地址/通道/注册结果，用户看着一串技术信息
+        // 反而判断不出服务究竟起没起来。
+        ServiceText = $"服务运行中 · 本机地址 {Bt.FormatAddress(_host.LocalAddress)} · RFCOMM 通道 {_host.Channel} · "
                       + $"SDP 注册 {(_host.ServiceRegistered ? "成功" : "失败")}";
         _connectionText = "等待手机连接";
         _hadSession = false;
@@ -201,6 +203,15 @@ internal sealed class RemoteEngine : IDisposable
             return;
         }
 
+        // 停止服务必须把活动会话一起断掉：只关监听套接字的话，手机那侧的 PING/PONG
+        // 还会照常跑，OnRtt 会继续把往返时间写回界面，于是出现「服务未启动 + 链路往返 15 ms」
+        // 这种自相矛盾的状态——用户根本判断不出服务到底停没停。
+        if (_host.CurrentSession is { } session)
+        {
+            Log?.Invoke("[连接] 服务停止，正在断开当前会话…");
+            session.Dispose();
+        }
+
         ClearTouchpad();
 
         _listener?.Dispose();
@@ -213,6 +224,7 @@ internal sealed class RemoteEngine : IDisposable
         _connectionText = "未启动";
         _remoteText = "—";
         _rttMs = -1;
+        _lastGestureText = "（暂无）";
         _hadSession = false;
         SetPhase(LinkPhase.Stopped);
         SelectionProblem = null;

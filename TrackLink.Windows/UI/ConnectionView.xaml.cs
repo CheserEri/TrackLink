@@ -95,7 +95,7 @@ internal partial class ConnectionView : System.Windows.Controls.UserControl
             LinkPhase.Connected => (StickerKey.Connected, "已连接", _okBrush),
             LinkPhase.Timeout => (StickerKey.Timeout, "心跳超时", _badBrush),
             LinkPhase.Lost => (StickerKey.Lost, "连接断开了", _badBrush),
-            LinkPhase.Stopped => (StickerKey.Bye, "服务已停止", _subBrush),
+            LinkPhase.Stopped => (StickerKey.Bye, "服务未启动", _subBrush),
             _ => (StickerKey.Waiting, "等待手机连接", _subBrush),
         };
 

@@ -159,8 +159,9 @@ public partial class MainWindow : System.Windows.Window
         if (!_engine.IsRunning)
         {
             // 服务没起来：界面必须把「没启动」和「启动了但没连上」分开，否则用户完全无从下手。
+            // 贴纸下方已经写明「服务未启动」，状态行不再复述，只留触控板信息（原来两处重复）。
             SetSideSticker(StickerKey.Bye, "服务未启动");
-            SideStatusText.Text = _engine.ServiceText + "\n" + _engine.TouchpadText;
+            SideStatusText.Text = _engine.TouchpadText;
             return;
         }
 
@@ -184,8 +185,11 @@ public partial class MainWindow : System.Windows.Window
                 break;
         }
 
-        SideStatusText.Text = _engine.ConnectionText + "\n" + _engine.RemoteText + "\n"
-                              + (_engine.RttMs is { } rtt ? $"{rtt} ms" : "—");
+        // 运行时必须点明「服务运行中」并给每行加标签：原来只堆三行裸值
+        // （等待手机连接 / — / —），用户看不出服务到底起没起来、这些「—」又是什么。
+        var rttText = _engine.RttMs is { } rtt ? $"{rtt} ms" : "—";
+        SideStatusText.Text = $"服务运行中 · {_engine.ConnectionText}\n"
+                              + $"远端 {_engine.RemoteText} · 往返 {rttText}";
     }
 
     private void SetSideSticker(StickerKey key, string caption)

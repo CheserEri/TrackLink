@@ -22,7 +22,11 @@
     <SolidColorBrush x:Key="HoverWashBrush" Color="#1FD3BC8E"/>
     <SolidColorBrush x:Key="SelectWashBrush" Color="#40D3BC8E"/>
     <SolidColorBrush x:Key="SideTextBrush" Color="#E8DFC9"/>
-    <SolidColorBrush x:Key="SideDimBrush" Color="#A99F8B"/>
+    <!--
+      侧栏次级文字：原来是 #A99F8B，压在 #3B4255→#4A5468 的深色渐变上对比度不足 4:1，
+      热键提示那行几乎看不见；提到 #C9BEA6 后既保留「次级」的层次感又足够读。
+    -->
+    <SolidColorBrush x:Key="SideDimBrush" Color="#C9BEA6"/>
 
     <LinearGradientBrush x:Key="GoldGradient" StartPoint="0,0" EndPoint="0.35,1">
         <GradientStop Color="#FFE7A8" Offset="0"/>
@@ -197,8 +201,15 @@
                                 <RotateTransform Angle="45"/>
                             </Rectangle.RenderTransform>
                         </Rectangle>
-                        <ContentPresenter x:Name="Content" Margin="26,0,10,0"
-                                          VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <!--
+                          这里必须用显式 TextBlock 并绑定 Foreground，不能用 ContentPresenter：
+                          本字典顶部的隐式 TextBlock 样式把前景色定死成深褐，它的优先级高于
+                          控件的前景色继承，会把侧栏导航文字染成深褐——在深色侧栏上根本看不清。
+                        -->
+                        <TextBlock x:Name="Content" Text="{TemplateBinding Content}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Margin="26,0,10,0"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

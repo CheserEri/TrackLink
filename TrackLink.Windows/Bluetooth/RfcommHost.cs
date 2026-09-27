@@ -195,7 +195,11 @@ internal sealed class RfcommHost : IDisposable
             }
 
             // 单手机场景下串行处理；会话结束后回到 accept，等待手机自动重连。
-            Log?.Invoke("[服务端] 已回到监听状态，等待下一次连接。");
+            // 服务已被主动停止时不再报「回到监听」——那时候根本没有监听，说了反而让人以为服务还在跑。
+            if (_running)
+            {
+                Log?.Invoke("[服务端] 已回到监听状态，等待下一次连接。");
+            }
         }
     }
 
