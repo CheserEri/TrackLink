@@ -23,6 +23,11 @@ captures/
 *.jks
 *.keystore
 
+# ---------- 素材 ----------
+# 原始表情素材（900+ 张），不随仓库分发：两端各自只需 Assets/Stickers 与
+# drawable-nodpi 里那 18 张精选贴纸，构建与运行都不依赖此目录。
+素材/
+
 # ---------- 操作系统 ----------
 Thumbs.db
 ehthumbs.db

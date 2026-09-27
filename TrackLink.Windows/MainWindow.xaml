@@ -3,36 +3,73 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="clr-namespace:TrackLink.Windows.UI"
         Title="TrackLink · 触控板遥控"
-        Height="672" Width="920"
-        MinHeight="520" MinWidth="760"
+        Height="700" Width="980"
+        MinHeight="560" MinWidth="820"
+        Background="{StaticResource PageBrush}"
+        TextOptions.TextFormattingMode="Ideal"
         WindowStartupLocation="CenterScreen"
         Closing="OnWindowClosing"
         StateChanged="OnWindowStateChanged"
         Loaded="OnWindowLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="196"/>
+            <ColumnDefinition Width="240"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Background="#FF2B2B2E">
-            <TextBlock Text="TrackLink" Foreground="White" FontSize="20" FontWeight="Bold" Margin="18,22,18,2"/>
-            <TextBlock Text="触控板遥控 · Windows 端" Foreground="#FFB0B0B0" FontSize="11" Margin="18,0,18,20"/>
+        <!-- ================= 侧栏：深色渐变底 + 金色描边导航 ================= -->
+        <Border Grid.Column="0" Background="{StaticResource SideBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <Button x:Name="NavDeviceButton" Content="① 触控板设备" Height="36" Margin="10,2"
-                    Click="OnNavigateDevice"/>
-            <Button x:Name="NavConnectionButton" Content="② 连接与控制" Height="36" Margin="10,2"
-                    Click="OnNavigateConnection"/>
-            <Button x:Name="NavSettingsButton" Content="③ 手势设置" Height="36" Margin="10,2"
-                    Click="OnNavigateSettings"/>
+                <StackPanel Grid.Row="0" Margin="20,22,20,0">
+                    <Grid HorizontalAlignment="Left">
+                        <Ellipse Width="62" Height="62" Fill="#1AFFE7A8"/>
+                        <ui:Sticker Key="Brand" Size="54" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <TextBlock Text="TrackLink" Foreground="{StaticResource GoldHiBrush}"
+                               FontSize="22" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBlock Text="触控板遥控 · Windows 端" Foreground="{StaticResource SideDimBrush}"
+                               FontSize="11" Margin="0,3,0,0"/>
+                    <Rectangle Height="1" Fill="#33D3BC8E" Margin="0,14,0,0"/>
+                </StackPanel>
 
-            <TextBlock x:Name="SideStatusText" Foreground="#FFB0B0B0" FontSize="11"
-                       TextWrapping="Wrap" Margin="18,20,18,0" Text="正在启动…"/>
-            <TextBlock x:Name="SideHotkeyText" Foreground="#FFB0B0B0" FontSize="11"
-                       TextWrapping="Wrap" Margin="18,8,18,0" Text=""/>
-        </StackPanel>
+                <StackPanel Grid.Row="1" Margin="0,12,0,0">
+                    <Button x:Name="NavDeviceButton" Style="{StaticResource NavButton}"
+                            Content="① 触控板设备" Click="OnNavigateDevice"/>
+                    <Button x:Name="NavConnectionButton" Style="{StaticResource NavButton}"
+                            Content="② 连接与控制" Click="OnNavigateConnection"/>
+                    <Button x:Name="NavSettingsButton" Style="{StaticResource NavButton}"
+                            Content="③ 手势设置" Click="OnNavigateSettings"/>
+                </StackPanel>
 
-        <Grid Grid.Column="1">
+                <!-- 侧栏常驻状态：一张贴纸 + 若干行文字，任何页面都能一眼看到链路情况 -->
+                <Border Grid.Row="3" Margin="12,0,12,14" CornerRadius="10" Padding="12,14"
+                        Background="#1FFFFFFF" BorderBrush="#33D3BC8E" BorderThickness="1">
+                    <StackPanel>
+                        <ui:Sticker x:Name="SideSticker" Key="Connecting" Size="58" Float="True"
+                                    HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="SideStickerCaption" Text="正在启动…" HorizontalAlignment="Center"
+                                   Foreground="{StaticResource GoldHiBrush}" FontSize="11.5"
+                                   Margin="0,6,0,0"/>
+                        <TextBlock x:Name="SideStatusText" Foreground="{StaticResource SideTextBrush}"
+                                   FontSize="11" TextWrapping="Wrap" TextAlignment="Center"
+                                   Margin="0,8,0,0" Text="正在启动…"/>
+                        <TextBlock x:Name="SideHotkeyText" Foreground="{StaticResource SideDimBrush}"
+                                   FontSize="10.5" TextWrapping="Wrap" TextAlignment="Center"
+                                   Margin="0,6,0,0" Text=""/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ================= 内容区：三个视图叠放，切页时各自淡入上浮 ================= -->
+        <Grid x:Name="ViewHost" Grid.Column="1" ClipToBounds="True">
             <ui:DevicePickerView x:Name="DevicePicker"/>
             <ui:ConnectionView x:Name="Connection"/>
             <ui:SettingsView x:Name="GestureSettings"/>

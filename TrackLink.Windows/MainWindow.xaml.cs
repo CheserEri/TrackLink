@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using TrackLink.Windows.Settings;
 using TrackLink.Windows.UI;
@@ -36,6 +36,7 @@ public partial class MainWindow : System.Windows.Window
     private bool _hotkeyRegistered;
     private bool _exiting;
     private ViewKind _view = ViewKind.Device;
+    private StickerKey _sideStickerKey = StickerKey.Connecting;
 
     private enum ViewKind
     {
@@ -52,10 +53,8 @@ public partial class MainWindow : System.Windows.Window
         _engine = new RemoteEngine(_settings);
         _engine.Log += _sink.Post;
 
-        Icon = Imaging.CreateBitmapSourceFromHIcon(
-            System.Drawing.SystemIcons.Application.Handle,
-            Int32Rect.Empty,
-            BitmapSizeOptions.FromEmptyOptions());
+        // 窗口 / 任务栏图标用品牌贴纸；解码失败时 BrandIcon 内部会回退到系统图标。
+        Icon = BrandIcon.Source;
 
         _poll = new DispatcherTimer(DispatcherPriority.Background)
         {
@@ -68,6 +67,9 @@ public partial class MainWindow : System.Windows.Window
 
     private void OnWindowLoaded(object sender, RoutedEventArgs e)
     {
+        // 窗口整体淡入。只挂动画、不改 Opacity 基值：动画万一没生效，窗口仍是默认不透明。
+        BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(280)));
+
         DevicePicker.Initialize(_engine, _settings, _sink, OnTouchpadSelected);
         Connection.Initialize(_engine, _sink);
         GestureSettings.Initialize(_settings, _sink);
@@ -78,6 +80,9 @@ public partial class MainWindow : System.Windows.Window
 
         ApplyHotkey();
         _poll.Start();
+
+        // 启动欢迎：派蒙开心（动图），随后由链路阶段接管。
+        SetSideSticker(StickerKey.Welcome, "欢迎回来");
 
         if (!_engine.Start())
         {
@@ -142,9 +147,58 @@ public partial class MainWindow : System.Windows.Window
             DevicePicker.Refresh();
         }
 
-        SideStatusText.Text = _engine.IsRunning
-            ? $"{_engine.ConnectionText}\n{_engine.RemoteText}\n{(_engine.RttMs is { } rtt ? $"{rtt} ms" : "—")}"
-            : "服务未启动";
+        RefreshSideStatus();
+    }
+
+    /// <summary>
+    /// 侧栏状态：贴纸由链路阶段决定，文案由服务状态补齐。
+    /// 贴纸只在语义真正变化时才换图，否则每 250 ms 重设一次 Key 会让入场动画反复重播。
+    /// </summary>
+    private void RefreshSideStatus()
+    {
+        if (!_engine.IsRunning)
+        {
+            // 服务没起来：界面必须把「没启动」和「启动了但没连上」分开，否则用户完全无从下手。
+            SetSideSticker(StickerKey.Bye, "服务未启动");
+            SideStatusText.Text = _engine.ServiceText + "\n" + _engine.TouchpadText;
+            return;
+        }
+
+        switch (_engine.Phase)
+        {
+            case LinkPhase.Connected:
+                SetSideSticker(_engine.IsPaused ? StickerKey.Paused : StickerKey.Connected,
+                    _engine.IsPaused ? "已暂停（喝口茶）" : "已连接");
+                break;
+
+            case LinkPhase.Timeout:
+                SetSideSticker(StickerKey.Timeout, "心跳超时");
+                break;
+
+            case LinkPhase.Lost:
+                SetSideSticker(StickerKey.Lost, "连接断开了");
+                break;
+
+            default:
+                SetSideSticker(StickerKey.Waiting, "等待手机连接");
+                break;
+        }
+
+        SideStatusText.Text = _engine.ConnectionText + "\n" + _engine.RemoteText + "\n"
+                              + (_engine.RttMs is { } rtt ? $"{rtt} ms" : "—");
+    }
+
+    private void SetSideSticker(StickerKey key, string caption)
+    {
+        SideStickerCaption.Text = caption;
+
+        if (_sideStickerKey == key)
+        {
+            return;
+        }
+
+        _sideStickerKey = key;
+        SideSticker.Key = key;
     }
 
     private void OnTouchpadSelected()
@@ -163,18 +217,45 @@ public partial class MainWindow : System.Windows.Window
     {
         _view = view;
 
-        DevicePicker.Visibility = view == ViewKind.Device ? Visibility.Visible : Visibility.Collapsed;
-        Connection.Visibility = view == ViewKind.Connection ? Visibility.Visible : Visibility.Collapsed;
-        GestureSettings.Visibility = view == ViewKind.Settings ? Visibility.Visible : Visibility.Collapsed;
+        var target = view switch
+        {
+            ViewKind.Device => (FrameworkElement)DevicePicker,
+            ViewKind.Connection => Connection,
+            _ => GestureSettings,
+        };
+
+        foreach (var page in new FrameworkElement[] { DevicePicker, Connection, GestureSettings })
+        {
+            page.Visibility = ReferenceEquals(page, target) ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         NavDeviceButton.FontWeight = view == ViewKind.Device ? FontWeights.Bold : FontWeights.Normal;
         NavConnectionButton.FontWeight = view == ViewKind.Connection ? FontWeights.Bold : FontWeights.Normal;
         NavSettingsButton.FontWeight = view == ViewKind.Settings ? FontWeights.Bold : FontWeights.Normal;
 
+        PlayEntrance(target);
+
         if (view == ViewKind.Device)
         {
             DevicePicker.Refresh();
         }
+    }
+
+    /// <summary>
+    /// 切页入场：淡入 + 从下方 12 px 上浮。
+    /// 每次导航都新建 <see cref="TranslateTransform"/> 实例——Style 里共享同一个 Freezable 时，
+    /// 动画会作用到所有引用它的元素上。
+    /// </summary>
+    private static void PlayEntrance(FrameworkElement page)
+    {
+        var slide = new TranslateTransform(0, 12);
+        page.RenderTransform = slide;
+
+        page.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(240)));
+        slide.BeginAnimation(TranslateTransform.YProperty, new DoubleAnimation(12, 0, TimeSpan.FromMilliseconds(320))
+        {
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+        });
     }
 
     private void ShowFromTray()
@@ -201,6 +282,13 @@ public partial class MainWindow : System.Windows.Window
         Close();
     }
 
+    /// <summary>热键状态既显示在设置页，也显示在侧栏——随时都能看到急停键是否真的生效。</summary>
+    private void SetHotkeyStatus(string text)
+    {
+        GestureSettings.SetHotkeyStatus(text);
+        SideHotkeyText.Text = text;
+    }
+
     /// <summary>按设置重新注册停止热键；注册失败就在设置页显式提示，不静默失败。</summary>
     private void ApplyHotkey()
     {
@@ -209,26 +297,26 @@ public partial class MainWindow : System.Windows.Window
         var handle = EnsureHook();
         if (handle == IntPtr.Zero)
         {
-            GestureSettings.SetHotkeyStatus("✗ 窗口句柄不可用，热键未生效。");
+            SetHotkeyStatus("✗ 窗口句柄不可用，热键未生效。");
             return;
         }
 
         var (modifiers, virtualKey, name) = ParseHotkey(_settings.Gesture.StopHotkey);
         if (virtualKey == 0)
         {
-            GestureSettings.SetHotkeyStatus("已禁用停止热键。");
+            SetHotkeyStatus("已禁用停止热键。");
             return;
         }
 
         if (RegisterHotKey(handle, HotkeyId, modifiers, virtualKey))
         {
             _hotkeyRegistered = true;
-            GestureSettings.SetHotkeyStatus($"已生效：按 {name} 暂停/恢复控制。");
+            SetHotkeyStatus($"已生效：按 {name} 暂停/恢复控制。");
             return;
         }
 
         var error = Marshal.GetLastWin32Error();
-        GestureSettings.SetHotkeyStatus($"✗ 热键注册失败（可能被别的程序占用）：Win32 {error}");
+        SetHotkeyStatus($"✗ 热键注册失败（可能被别的程序占用）：Win32 {error}");
         _sink.Post($"[热键] ✗ {name} 注册失败，Win32 {error}。可在设置页换一个热键。");
     }
 

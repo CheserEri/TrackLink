@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 用平台主题，避免为了一个壳主题再引入 material components 依赖。 -->
-    <style name="Theme.TrackLink" parent="@android:style/Theme.Material.Light.NoActionBar" />
+    <!--
+      平台主题改一下系统栏与窗口底色，避免 Compose 首帧之前闪一下白/黑。
+      配色与 GenshinTheme.kt 的 Page(#ECE5D8) / TextMain(#3B4255) 保持一致。
+    -->
+    <style name="Theme.TrackLink" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/genshin_page</item>
+        <item name="android:statusBarColor">@color/genshin_side_top</item>
+        <item name="android:navigationBarColor">@color/genshin_page</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:colorAccent">@color/genshin_gold</item>
+    </style>
 </resources>

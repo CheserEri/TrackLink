@@ -73,6 +73,8 @@ internal partial class DevicePickerView : System.Windows.Controls.UserControl
 
     private long _scanDeadline;
     private bool _scanning;
+    private bool _scanMissed;
+    private StickerKey _stickerKey = StickerKey.Welcome;
 
     public DevicePickerView()
     {
@@ -114,6 +116,8 @@ internal partial class DevicePickerView : System.Windows.Controls.UserControl
                                    + "此时无法把触控板输入与普通鼠标区分开，程序不会猜测来源，手势转发将不可用。";
             ScanButton.IsEnabled = false;
             UseButton.IsEnabled = false;
+            // 监听器根本没起来是另一回事：那是程序故障，不是「本机没触控板」。
+            SetSticker(engine.ListenerStarted ? StickerKey.Nothing : StickerKey.Shock);
             return;
         }
 
@@ -153,6 +157,42 @@ internal partial class DevicePickerView : System.Windows.Controls.UserControl
         }
 
         UseButton.IsEnabled = DeviceList.SelectedItem is DeviceRow;
+        SetSticker(ComputeSticker());
+    }
+
+    /// <summary>本页表情按「用户此刻最需要知道什么」排优先级。</summary>
+    private StickerKey ComputeSticker()
+    {
+        if (_scanning)
+        {
+            return StickerKey.Searching;
+        }
+
+        if (_scanMissed)
+        {
+            // 3 秒一条报文都没有：疑问脸最贴切，同时页脚文字已经给出具体排查方向。
+            return StickerKey.Hint;
+        }
+
+        if (_rows.Any(r => r.IsHighlighted))
+        {
+            return StickerKey.Found;
+        }
+
+        return _engine?.SelectedGroupKey is not null ? StickerKey.Ready : StickerKey.Welcome;
+    }
+
+    private void SetSticker(StickerKey key)
+    {
+        PageStickerCaption.Text = Sticker.DescribeOf(key);
+
+        if (_stickerKey == key)
+        {
+            return;
+        }
+
+        _stickerKey = key;
+        PageSticker.Key = key;
     }
 
     /// <summary>设置页脚提示（首次使用 / 上次设备未找到）。</summary>
@@ -172,6 +212,7 @@ internal partial class DevicePickerView : System.Windows.Controls.UserControl
         }
 
         _scanning = true;
+        _scanMissed = false;
         _scanDeadline = Environment.TickCount64 + ScanWindowMs;
         engine.BeginActivityWindow();
         StatusText.Text = "检测中：请用单指在触控板上连续来回滑动 3 秒…";
@@ -220,6 +261,8 @@ internal partial class DevicePickerView : System.Windows.Controls.UserControl
             StatusText.Text = $"3 秒内没有收到任何触控板报文。{diagnosis}";
             _sink?.Post($"[设备选择] 3 秒检测结束，未收到任何报文（监听已启动={engine.ListenerStarted}，"
                         + $"累计 WM_INPUT={engine.InputMessageCount}）。");
+            _scanMissed = true;
+            SetSticker(ComputeSticker());
             return;
         }
 

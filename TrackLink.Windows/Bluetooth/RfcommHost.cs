@@ -21,8 +21,16 @@ internal sealed class RfcommHost : IDisposable
     private bool _serviceRegistered;
     private bool _wsaStarted;
     private BtSession? _currentSession;
+    private volatile bool _lastSessionTimedOut;
 
     public ulong LocalAddress { get; private set; }
+
+    /// <summary>
+    /// 最近一次结束的会话是否因心跳超时（3 秒内没收到任何帧）而断。
+    /// 界面靠它把「心跳超时」和「对端正常断开」区分开：<see cref="BtSession.Run"/> 的返回值
+    /// 原本被丢弃，一旦会话引用被清成 null 就再也拿不到原因。
+    /// </summary>
+    public bool LastSessionTimedOut => _lastSessionTimedOut;
 
     public uint Channel { get; private set; }
 
@@ -134,6 +142,7 @@ internal sealed class RfcommHost : IDisposable
 
         _acceptThread?.Join(TimeSpan.FromSeconds(2));
         _acceptThread = null;
+        _lastSessionTimedOut = false;
     }
 
     public void Dispose()
@@ -167,10 +176,13 @@ internal sealed class RfcommHost : IDisposable
             var remote = Winsock.GetPeerAddress(client);
             using var session = new BtSession(client, remote?.btAddr ?? 0);
             session.Log += message => Log?.Invoke(message);
+            _lastSessionTimedOut = false;
             CurrentSession = session;
             try
             {
-                session.Run();
+                // 必须在清空 CurrentSession（会同步触发 SessionChanged）之前记下结束原因，
+                // 否则界面只能看到「会话没了」，无法区分超时与正常断开。
+                _lastSessionTimedOut = session.Run();
             }
             catch (Exception ex)
             {

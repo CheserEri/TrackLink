@@ -5,6 +5,28 @@ using TrackLink.Windows.Settings;
 namespace TrackLink.Windows.UI;
 
 /// <summary>
+/// 链路阶段。界面用它决定显示哪张表情贴纸——尤其是把「心跳超时」与「对端正常断开」分开，
+/// 这两者在旧的文案里都是「等待手机连接」，肉眼分不出来。
+/// </summary>
+internal enum LinkPhase
+{
+    /// <summary>服务未启动。</summary>
+    Stopped,
+
+    /// <summary>监听中，等待手机连接。</summary>
+    Waiting,
+
+    /// <summary>已连接。</summary>
+    Connected,
+
+    /// <summary>上一次会话因心跳超时断开。</summary>
+    Timeout,
+
+    /// <summary>上一次会话因对端断开 / 接收错误结束。</summary>
+    Lost,
+}
+
+/// <summary>
 /// 图形界面的后台编排：把蓝牙服务端、触控板监听、手势识别、本机鼠标闸门串成一条链路。
 ///
 /// 线程约定：<see cref="Start"/> / <see cref="Stop"/> / <see cref="SelectTouchpad"/> 只在 UI 线程调用；
@@ -22,10 +44,12 @@ internal sealed class RemoteEngine : IDisposable
     private Action<TouchContactReport>? _blockerHandler;
     private BtSession? _rttSession;
     private int _disposed;
+    private volatile bool _hadSession;
 
     private volatile bool _running;
     private volatile bool _paused;
     private volatile bool _mouseBlockEnabled = true;
+    private int _phase = (int)LinkPhase.Stopped;
     private long _rttMs = -1;
     private string _connectionText = "未启动";
     private string _remoteText = "—";
@@ -72,6 +96,12 @@ internal sealed class RemoteEngine : IDisposable
 
     /// <summary>连接状态文案。</summary>
     public string ConnectionText => _connectionText;
+
+    /// <summary>当前链路阶段（界面据此选贴纸）。</summary>
+    public LinkPhase Phase => (LinkPhase)Volatile.Read(ref _phase);
+
+    /// <summary>本次运行是否成功建立过至少一次会话（用于区分「从未连上」与「连过又断了」）。</summary>
+    public bool HadSession => _hadSession;
 
     /// <summary>远端设备地址文案。</summary>
     public string RemoteText => _remoteText;
@@ -122,6 +152,8 @@ internal sealed class RemoteEngine : IDisposable
         ServiceText = $"本机地址 {Bt.FormatAddress(_host.LocalAddress)} · RFCOMM 通道 {_host.Channel} · "
                       + $"SDP 注册 {(_host.ServiceRegistered ? "成功" : "失败")}";
         _connectionText = "等待手机连接";
+        _hadSession = false;
+        SetPhase(LinkPhase.Waiting);
 
         _listener = new RawInputListener();
         _listener.Log += line => Log?.Invoke(line);
@@ -181,6 +213,8 @@ internal sealed class RemoteEngine : IDisposable
         _connectionText = "未启动";
         _remoteText = "—";
         _rttMs = -1;
+        _hadSession = false;
+        SetPhase(LinkPhase.Stopped);
         SelectionProblem = null;
         ListenerProblem = null;
 
@@ -349,7 +383,15 @@ internal sealed class RemoteEngine : IDisposable
             _connectionText = _running ? "等待手机连接" : "未启动";
             _remoteText = "—";
             _rttMs = -1;
-            Log?.Invoke("[连接] 手机已断开，手势命令将被丢弃。");
+
+            // 会话在这里已经被清成 null，结束原因只能从 RfcommHost 里取：
+            // 超时（3 秒没有任何帧）与对端主动断开要给用户看完全不同的表情与提示。
+            var timedOut = _host.LastSessionTimedOut;
+            SetPhase(_running ? (timedOut ? LinkPhase.Timeout : LinkPhase.Lost) : LinkPhase.Stopped);
+
+            Log?.Invoke(timedOut
+                ? "[连接] 心跳超时（3 秒内未收到任何帧），链路已断开；等待手机重连。"
+                : "[连接] 手机已断开，手势命令将被丢弃。");
             return;
         }
 
@@ -357,8 +399,12 @@ internal sealed class RemoteEngine : IDisposable
         _rttSession = session;
         _connectionText = "已连接";
         _remoteText = Bt.FormatAddress(session.RemoteAddress);
+        _hadSession = true;
+        SetPhase(LinkPhase.Connected);
         Log?.Invoke($"[连接] 手机已连接（{_remoteText}），开始转发手势命令。");
     }
+
+    private void SetPhase(LinkPhase phase) => Volatile.Write(ref _phase, (int)phase);
 
     private void DetachRtt()
     {

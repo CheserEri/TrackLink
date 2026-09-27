@@ -12,6 +12,7 @@ namespace TrackLink.Windows.UI;
 internal sealed class TrayIcon : IDisposable
 {
     private readonly WinForms.NotifyIcon _icon;
+    private readonly System.Drawing.Icon? _brand;
 
     public TrayIcon(Action onShow, Action onHide, Action onExit)
     {
@@ -21,10 +22,13 @@ internal sealed class TrayIcon : IDisposable
         menu.Items.Add(new WinForms.ToolStripSeparator());
         menu.Items.Add("退出 TrackLink", null, (_, _) => onExit());
 
+        // 托盘图标与窗口图标同源（品牌贴纸）；解码失败时 BrandIcon 内部已回退到系统图标。
+        _brand = BrandIcon.CreateIcon();
+
         _icon = new WinForms.NotifyIcon
         {
             Text = "TrackLink · 触控板遥控",
-            Icon = System.Drawing.SystemIcons.Application,
+            Icon = _brand,
             ContextMenuStrip = menu,
             Visible = true,
         };
@@ -38,5 +42,8 @@ internal sealed class TrayIcon : IDisposable
         _icon.Visible = false;
         _icon.ContextMenuStrip?.Dispose();
         _icon.Dispose();
+
+        // NotifyIcon 不接管外部传入的 Icon 生命周期，这里自己释放句柄，避免 GDI 对象泄漏。
+        _brand?.Dispose();
     }
 }

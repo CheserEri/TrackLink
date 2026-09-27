@@ -19,4 +19,12 @@
     -->
   </PropertyGroup>
 
+  <ItemGroup>
+    <!--
+      原神风格表情贴纸以 Resource 内嵌进程序集：发布成单文件后磁盘上不会有 Assets 目录，
+      界面只能通过 pack URI 取图，不能读文件路径。
+    -->
+    <Resource Include="Assets\Stickers\*"/>
+  </ItemGroup>
+
 </Project>

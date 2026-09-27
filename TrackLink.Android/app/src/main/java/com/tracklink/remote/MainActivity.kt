@@ -2,6 +2,7 @@ package com.tracklink.remote
 
 import android.Manifest
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,16 +14,24 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.tracklink.remote.accessibility.GestureDispatcher
 import com.tracklink.remote.accessibility.TrackLinkAccessibilityService
 import com.tracklink.remote.bluetooth.BluetoothConnectionManager
 import com.tracklink.remote.ui.ConnectionScreen
+import com.tracklink.remote.ui.theme.Genshin
+import com.tracklink.remote.ui.theme.GenshinTypography
 
 class MainActivity : ComponentActivity() {
 
@@ -53,8 +62,8 @@ class MainActivity : ComponentActivity() {
         accessibilityEnabled = isAccessibilityServiceEnabled()
 
         setContent {
-            val state by manager.state.collectAsState()
-            MaterialTheme {
+            TrackLinkTheme {
+                val state by manager.state.collectAsState()
                 ConnectionScreen(
                     state = state,
                     permissionsGranted = permissionsGranted,
@@ -126,4 +135,38 @@ class MainActivity : ComponentActivity() {
         runCatching { startActivity(intent) }
             .onFailure { manager.appendLog("无法打开无障碍设置：${it.message ?: it.javaClass.simpleName}") }
     }
+}
+
+/**
+ * 原神主题：只有一套浅色米黄金配色，不跟随系统深色——
+ * 游戏内那种奶油羊皮纸 + 金色描边的观感在深色底上会完全走样。
+ */
+@Composable
+private fun TrackLinkTheme(content: @Composable () -> Unit) {
+    val context = LocalContext.current
+
+    // 状态栏当作顶部深色横幅的延伸（浅色图标），导航栏用页面底色（深色图标）。
+    SideEffect {
+        val window = (context as? Activity)?.window ?: return@SideEffect
+        window.statusBarColor = Genshin.SideTop.toArgb()
+        window.navigationBarColor = Genshin.Page.toArgb()
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = false
+            isAppearanceLightNavigationBars = true
+        }
+    }
+
+    MaterialTheme(
+        colorScheme = lightColorScheme(
+            primary = Genshin.GoldDeep,
+            onPrimary = Genshin.CardHi,
+            background = Genshin.Page,
+            onBackground = Genshin.TextMain,
+            surface = Genshin.Card,
+            onSurface = Genshin.TextMain,
+            error = Genshin.Danger,
+        ),
+        typography = GenshinTypography,
+        content = content,
+    )
 }

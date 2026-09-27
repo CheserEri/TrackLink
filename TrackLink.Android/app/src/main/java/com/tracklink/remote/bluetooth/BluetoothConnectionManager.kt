@@ -50,6 +50,14 @@ data class LinkUiState(
     val scanning: Boolean = false,
     val enabled: Boolean = false,
     val log: List<String> = emptyList(),
+    /**
+     * 是否因为心跳超时而落到 FAILED。
+     *
+     * 单独开一个布尔值而不是让界面去比对 error 文案：超时（笔记本 3 秒没回应）和
+     * 连接失败（配对/通道问题）要给用户看完全不同的反馈，靠字符串匹配迟早会踩坑。
+     * 与 Windows 端 `RemoteEngine.Phase` 的 Timeout 语义一致。
+     */
+    val timedOut: Boolean = false,
 )
 
 /**
@@ -199,7 +207,7 @@ class BluetoothConnectionManager(
         scope.launch {
             job?.cancelAndJoin()
             _state.update {
-                it.copy(state = LinkState.IDLE, peer = null, rttMs = null, error = null)
+                it.copy(state = LinkState.IDLE, peer = null, rttMs = null, error = null, timedOut = false)
             }
             log("已断开连接。")
         }
@@ -211,7 +219,7 @@ class BluetoothConnectionManager(
         var sessionSocket: BluetoothSocket? = null
 
         _state.update {
-            it.copy(state = LinkState.CONNECTING, peer = peer, rttMs = null, error = null)
+            it.copy(state = LinkState.CONNECTING, peer = peer, rttMs = null, error = null, timedOut = false)
         }
         log("正在连接 ${peer.name} (${peer.address}) …")
 
@@ -287,6 +295,7 @@ class BluetoothConnectionManager(
                         state = LinkState.FAILED,
                         error = "心跳超时",
                         rttMs = null,
+                        timedOut = true,
                     )
                 }
                 // 关掉套接字让阻塞中的 read 立刻返回，从而结束整个会话。

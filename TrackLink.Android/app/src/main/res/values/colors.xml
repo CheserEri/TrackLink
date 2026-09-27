@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 与 Windows 端 GenshinTheme.xaml 的色板逐项对应，改一处必须同步改另一处。 -->
+    <color name="genshin_page">#ECE5D8</color>
+    <color name="genshin_card">#F7F2E7</color>
+    <color name="genshin_card_hi">#FFFBF2</color>
+    <color name="genshin_gold">#D3BC8E</color>
+    <color name="genshin_gold_deep">#B08D57</color>
+    <color name="genshin_gold_hi">#FFE7A8</color>
+    <color name="genshin_text_main">#3B4255</color>
+    <color name="genshin_side_top">#3B4255</color>
+    <color name="genshin_side_bottom">#4A5468</color>
+</resources>

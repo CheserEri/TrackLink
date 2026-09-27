@@ -23,6 +23,12 @@ internal sealed class App : System.Windows.Application
         ShutdownMode = ShutdownMode.OnMainWindowClose;
         DispatcherUnhandledException += OnDispatcherUnhandledException;
 
+        // 原神风格主题字典必须先于任何窗口加载，否则控件会先用系统默认样式完成一次布局再被重绘。
+        Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/UI/Theme/GenshinTheme.xaml", UriKind.Absolute),
+        });
+
         // 兜底摘钩子：本机鼠标闸门是低层钩子，进程退出后系统会摘，但主动摘更干净。
         AppDomain.CurrentDomain.ProcessExit += (_, _) => LocalMouseBlocker.Stop();
         AppDomain.CurrentDomain.UnhandledException += (_, _) => LocalMouseBlocker.Stop();
