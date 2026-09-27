@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Windows 端 MSI 安装包定义（WiX Toolset v5，纯命令行，不需要 Visual Studio / Windows SDK）。
+  构建步骤见 README「构建与运行 → Windows 安装包」。
+
+  安装范围用 Scope="perUserOrMachine"（双范围包、默认按当前用户安装，落到
+  %LocalAppData%\Programs\TrackLink）：这个程序既不需要管理员权限（RFCOMM 服务端、
+  Raw Input 监听都是普通用户权限就能跑），也不值得为一次安装弹一次 UAC。
+  实测该取值才会把包标成「不需要提权」（摘要信息 Word Count = 2）并自动写入
+  ALLUSERS=2 + MSIINSTALLPERUSER=1；写成 perUser 反而得到 Word Count = 10，
+  会被 Windows Installer 判成需要提权的包、把安装注册到 HKLM。
+
+  安装内容就是 publish\win-x64 下的 TrackLink.Windows.exe。启动时加
+  `-p:IncludeNativeLibrariesForSelfExtract=true`，WPF 的 5 个原生库
+  （D3DCompiler_47_cor3 / PenImc_cor3 / PresentationNative_cor3 / vcruntime140_cor3 /
+  wpfgfx_cor3）会被并进这个单文件、运行时自行解到临时目录，所以发布目录里只有这一个文件。
+  安装包也就只需要装这一个文件。
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+  <!--
+    ProductCode 刻意写死：不写的话 WiX 每次构建都随机生成一个新码，
+    同一个 0.2.2 重建两次就等于两个互不相干的产品——MajorUpgrade 靠 UpgradeCode
+    仍能找到旧版，但两次安装会在「应用和功能」里留下两份记录，文件和快捷方式互相覆盖。
+    写死后同版本重建始终是同一个产品码。ProductCode 只在换版本时才允许变，
+    且绝不能与任何其他产品重复。
+  -->
+  <Package ProductCode="{3B6D7E15-9A48-4C2F-8D57-1E0A6B4C9F23}"
+           Name="TrackLink 触控板遥控"
+           Manufacturer="CheserEri"
+           Version="0.2.2"
+           UpgradeCode="8F2A5C31-7D64-4B9E-A1F0-3C6E5B7D9A21"
+           Scope="perUserOrMachine"
+           Compressed="yes">
+
+    <MajorUpgrade DowngradeErrorMessage="已安装更高版本的 TrackLink，请先在「应用和功能」中卸载它，再安装当前版本。" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- 「应用和功能」列表里的图标（ARPNOMODIFY 由 WixUI_InstallDir 自带，不能重复定义） -->
+    <Icon Id="AppIcon" SourceFile="..\TrackLink.Windows\Assets\TrackLink.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+
+    <!--
+      ALLUSERS / MSIINSTALLPERUSER 由 Scope="perUserOrMachine" 自动写入，这里不再手写：
+      手写 ALLUSERS=2 时摘要信息仍是 Word Count = 10，安装日志里会出现
+      「MSIINSTALLPERUSER property is not valid for UAC compliant package. Ignoring」，
+      结果装成了需要提权的包、注册表落到 HKLM。
+    -->
+
+    <!--
+      安装目录的 id 刻意不叫 INSTALLFOLDER：那个名字被 WiX 当成「隐式安装根」，
+      一旦用它，工具链会自己按 ProgramFiles\产品名 解析（本机 ProgramFiles 被重定向到
+      D:\SoftWare，实测就装到了 d:\SoftWare\TrackLink）。改成自定义 id 后才会落到
+      下面写的 LocalAppData\Programs\TrackLink。
+    -->
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="AppFolder" />
+    <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsFolder" Name="Programs">
+        <Directory Id="AppFolder" Name="TrackLink" />
+      </Directory>
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="TrackLink 触控板遥控" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="DesktopShortcut" />
+    </Feature>
+  </Package>
+
+  <Fragment>
+    <ComponentGroup Id="AppFiles" Directory="AppFolder">
+      <Component Id="AppFilesComponent" Guid="2C4E6A18-9B3D-4F57-8E21-6D4A0C9B7F33">
+        <File Id="TrackLinkExe" Source="..\publish\win-x64\TrackLink.Windows.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppMenuFolder" Name="TrackLink" />
+    </StandardDirectory>
+    <StandardDirectory Id="DesktopFolder" />
+
+    <!-- 开始菜单快捷方式。KeyPath 用注册表值而不是快捷方式本身：
+         .lnk 归安装程序管，用它当 KeyPath 会让修复/卸载的判定变得不可靠。 -->
+    <Component Id="StartMenuShortcut" Directory="AppMenuFolder" Guid="5B7D0E42-1A86-4C39-9F52-8E7B3D1A6C04">
+      <Shortcut Id="StartMenuShortcutLink" Name="TrackLink 触控板遥控"
+                Description="把笔记本触控板的手势通过蓝牙转发到手机执行"
+                Target="[AppFolder]TrackLink.Windows.exe" WorkingDirectory="AppFolder"
+                Icon="AppIcon" />
+      <RemoveFolder Id="RemoveAppMenuFolder" Directory="AppMenuFolder" On="uninstall" />
+      <RegistryValue Root="HKCU" Key="Software\CheserEri\TrackLink" Name="StartMenuShortcut"
+                     Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+    <Component Id="DesktopShortcut" Directory="DesktopFolder" Guid="9E1A3F75-6C28-4D0B-B84E-1F5A2C7D9E60">
+      <Shortcut Id="DesktopShortcutLink" Name="TrackLink 触控板遥控"
+                Description="把笔记本触控板的手势通过蓝牙转发到手机执行"
+                Target="[AppFolder]TrackLink.Windows.exe" WorkingDirectory="AppFolder"
+                Icon="AppIcon" />
+      <RegistryValue Root="HKCU" Key="Software\CheserEri\TrackLink" Name="DesktopShortcut"
+                     Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+  </Fragment>
+</Wix>

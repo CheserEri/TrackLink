@@ -85,6 +85,7 @@ TrackLink/
 │     ├─ accessibility/        # 无障碍服务、手势调度、拖拽笔画、悬浮光标
 │     └─ ui/                   # 连接界面（权限、设备列表、状态、RTT、日志）
 ├─ TrackLink.Windows.Spike/    # 第 1 周可行性探针（Raw Input 枚举与 HID 解码验证）
+├─ installer/                  # Windows MSI 安装包定义（WiX Toolset，纯命令行构建）
 ├─ docs-evidence/              # 真机验证截图
 ├─ .trae/documents/            # 阶段规格文档
 └─ TrackLink-纯软件项目计划.md   # 项目计划书（含全部实测结论与踩坑记录）
@@ -133,6 +134,33 @@ dotnet publish .\TrackLink.Windows\TrackLink.Windows.csproj -c Release -r win-x6
 > **不要加 `-p:EnableCompressionInSingleFile=true`。** 本机实测：加上之后体积能从约 138 MB 压到约 63 MB，但窗口客户区**全黑**——进程不报错、不崩溃、标题栏正常，只有画面全黑，原生库其实已正确提取。为省 75 MB 换一个黑屏不值得。
 >
 > 同时**不要开 `PublishTrimmed`**，WPF 不支持裁剪。
+
+打包成 **MSI 安装包**（按当前用户安装到 `%LocalAppData%\Programs\TrackLink`，不弹 UAC）：
+
+```powershell
+# 1) 先按上面命令 publish 出 publish\win-x64\TrackLink.Windows.exe
+# 2) 再打成 MSI。工作目录必须是 installer\：wxs 里的相对路径按当前目录解析，不是按 wxs 所在目录
+cd .\installer
+wix build TrackLink.Windows.wxs -arch x64 -ext WixToolset.UI.wixext -culture zh-CN `
+  -o ..\publish\TrackLink-Windows-v0.2.2-x64.msi
+```
+
+> 工具链一次性装好即可（是 dotnet 全局工具，**不是项目依赖**，`csproj` 里依旧没有任何 NuGet 包）：
+>
+> ```powershell
+> dotnet tool install --global wix --version 5.0.2
+> wix extension add -g WixToolset.UI.wixext/5.0.2
+> ```
+>
+> **刻意钉在 5.0.2**：v6 / v7 要求接受 OSMF 付费协议，不接受就只报 `WIX7015` 不干活。
+>
+> 维护 `installer/TrackLink.Windows.wxs` 时有两处不能随手改：
+>
+> - `Scope` 必须是 `perUserOrMachine`。实测写成 `perUser` 反而得到摘要信息 Word Count = 10 的「需要提权」包，安装会被判成按机器安装并注册到 HKLM；`perUserOrMachine` 才是 Word Count = 2 的双范围包，装到当前用户目录、不弹 UAC。
+> - `ProductCode` 是写死的固定 GUID：同一个版本重建必须保持不变（否则会被当成两个产品各装一份），换版本时则要换一个新 GUID。
+>
+> 产物是单个 MSI（约 53 MB），向导为简体中文，带开始菜单与桌面快捷方式，可从「应用和功能」卸载。
+> `installer/license.rtf` 是向导里那页许可说明，中文必须写成 `\uN?` 转义（RTF 里直接塞 UTF-8 中文不会渲染）。
 
 ### Android 端
 

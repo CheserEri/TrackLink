@@ -14,6 +14,12 @@
     <LangVersion>latest</LangVersion>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <!--
+      品牌图标编译进 exe：安装包、开始菜单与桌面快捷方式都是从 exe 上取图标的，
+      不设 ApplicationIcon 的话快捷方式会显示 .NET 的默认图标。
+      .ico 由 Assets/Stickers/brand.png（256×256 透明底）生成，七个尺寸一套。
+    -->
+    <ApplicationIcon>Assets\TrackLink.ico</ApplicationIcon>
+    <!--
       刻意不用 InvariantGlobalization：WPF 的 XmlLanguage / CultureInfo 名称解析
       在 invariant 模式下会退化甚至抛 CultureNotFoundException，省下的几 MB 不值得。
     -->
